@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Premium radial and linear gold gradients matching IICA logo -->
+    <radialGradient id="gold-medal" cx="50%" cy="50%" r="50%" fx="35%" fy="35%">
+      <stop offset="0%" stop-color="#FFECA1" />
+      <stop offset="45%" stop-color="#DCA842" />
+      <stop offset="85%" stop-color="#B88224" />
+      <stop offset="100%" stop-color="#805610" />
+    </radialGradient>
+
+    <radialGradient id="gold-inner" cx="50%" cy="50%" r="50%" fx="40%" fy="40%">
+      <stop offset="0%" stop-color="#FFF3C2" />
+      <stop offset="60%" stop-color="#E2B755" />
+      <stop offset="100%" stop-color="#A57018" />
+    </radialGradient>
+
+    <linearGradient id="gold-text" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#674B16" />
+      <stop offset="50%" stop-color="#4E360D" />
+      <stop offset="100%" stop-color="#312005" />
+    </linearGradient>
+
+    <!-- Path for the top curved text (Clockwise Arc) -->
+    <path id="textPathTop" d="M 80,250 A 170,170 0 0,1 420,250" fill="none" />
+    <!-- Path for the bottom curved text (Counter-Clockwise Arc to prevent upside-down letters) -->
+    <path id="textPathBottom" d="M 420,250 A 170,170 0 0,1 80,250" fill="none" />
+  </defs>
+
+  <!-- Outer Ring (Gold Medal Base) -->
+  <circle cx="250" cy="250" r="230" fill="url(#gold-medal)" stroke="#674B16" stroke-width="4" />
+  <circle cx="250" cy="250" r="222" fill="none" stroke="#FFECA1" stroke-width="1.5" opacity="0.6" />
+
+  <!-- Outer text area divider rings -->
+  <circle cx="250" cy="250" r="198" fill="none" stroke="#674B16" stroke-width="2.5" />
+  <circle cx="250" cy="250" r="142" fill="none" stroke="#674B16" stroke-width="2.5" />
+
+  <!-- Inner Medal Section -->
+  <circle cx="250" cy="250" r="136" fill="url(#gold-inner)" stroke="#674B16" stroke-width="1.5" />
+  <circle cx="250" cy="250" r="132" fill="none" stroke="#FFECA1" stroke-width="1" opacity="0.5" />
+
+  <!-- Curved Typography (Georgia Style Academic Serif) -->
+  <text font-family="'Georgia', 'Times New Roman', serif" font-size="20.5" font-weight="bold" fill="url(#gold-text)" letter-spacing="1.5px">
+    <!-- Top Text: INTERNATIONAL INSTRUCTORS CERTIFICATION -->
+    <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">
+      INTERNATIONAL INSTRUCTORS CERTIFICATION
+    </textPath>
+  </text>
+
+  <text font-family="'Georgia', 'Times New Roman', serif" font-size="20.5" font-weight="bold" fill="url(#gold-text)" letter-spacing="1.5px">
+    <!-- Bottom Text: ASSOCIATION • 2018 • (Centered via counter-clockwise path) -->
+    <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">
+      • ASSOCIATION • 2018 •
+    </textPath>
+  </text>
+
+  <!-- Central Initials: IICA (Elegant high-contrast Serif with subtle drop shadow effect) -->
+  <!-- Shadow text for depth -->
+  <text x="250.5" y="284.5" font-family="'Georgia', 'Times New Roman', serif" font-size="94" font-weight="bold" font-style="italic" fill="#FFECA1" opacity="0.75" text-anchor="middle" letter-spacing="-1px">IICA</text>
+  <!-- Main text -->
+  <text x="250" y="283" font-family="'Georgia', 'Times New Roman', serif" font-size="94" font-weight="bold" font-style="italic" fill="url(#gold-text)" text-anchor="middle" letter-spacing="-1px">IICA</text>
+</svg>

@@ -1,0 +1,706 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* IICA Custom Lamborghini-Inspired Luxury Color Tokens */
+  --primary-navy: #040914;       /* Flat Abyss Navy (Replaces Absolute Black #000000) */
+  --surface-navy: #0c1527;       /* Elevated Surface Navy (Replaces Charcoal #202020) */
+  --deep-navy-iron: #080d19;     /* Deep Section Divider (Replaces Dark Iron #181818) */
+  
+  --accent-gold: #FFC000;        /* Royal Gold Accent (Lamborghini Gold) */
+  --accent-gold-hover: #917300;  /* Darkened Gold for Hover State */
+  
+  --text-white: #FFFFFF;
+  --text-smoke: #F5F5F5;
+  --text-gray: #8E9CAE;          /* Muted Slate Gray with a tint of Navy (Replaces Ash #7D7D7D) */
+  
+  --font-title: 'Outfit', 'Pretendard', sans-serif;
+  --font-body: 'Pretendard', sans-serif;
+  --header-height: 80px;
+}
+
+html, body {
+  background-color: var(--primary-navy);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Header styling - Floating minimal design inspired by Lamborghini navigation */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: transparent;
+  color: #fff;
+}
+
+/* Header Scrolled - Sophisticated glassmorphism matching navy theme */
+.header.scrolled {
+  background-color: rgba(4, 9, 20, 0.85);
+  backdrop-filter: blur(15px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.header-inner {
+  width: 90%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.logo-img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.06) rotate(10deg); /* 1st class premium micro hover spin */
+}
+
+.logo-text {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 2.0rem;
+  letter-spacing: 3px;
+  color: var(--text-white);
+  transition: color 0.3s ease;
+}
+
+.logo:hover .logo-text {
+  color: var(--accent-gold);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* Flexible gap instead of hardcoded margin */
+  transition: gap 0.3s ease;
+}
+
+.nav a {
+  color: var(--text-smoke);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1.5px; /* Technical wider spacing for menu */
+  text-transform: uppercase; /* Shouting authoritative uppercase */
+  font-family: var(--font-title); /* Outfit for custom neo-grotesk geometry */
+  transition: color 0.3s ease, font-size 0.3s ease;
+  white-space: nowrap; /* Prevent ugly line wrapping */
+}
+
+.nav a:hover {
+  color: var(--accent-gold);
+}
+
+/* Zero border-radius standard button inspired by Lamborghini */
+.lang-btn {
+  background: none;
+  border: 1px solid currentColor;
+  color: var(--text-white);
+  padding: 6px 18px;
+  border-radius: 0px; /* Zero border-radius (Strict Angular Design) */
+  cursor: pointer;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.lang-btn:hover {
+  background-color: var(--text-white);
+  border-color: var(--text-white);
+  color: var(--primary-navy);
+}
+
+.header.scrolled .lang-btn:hover {
+  background-color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--primary-navy);
+}
+
+/* Hero Section Container */
+.hero-section {
+  position: relative;
+  height: 132vh; /* 100vh viewport + 32vh dynamic animation scroll distance */
+  background-color: var(--primary-navy);
+}
+
+/* Fixed video wrapper (Bypasses browser sticky bugs entirely) */
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  clip-path: inset(0% 0% 0% 0% round 0px);
+  will-change: clip-path, transform;
+  /* Hardware acceleration trigger */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+#bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  /* Balanced Blur & Color Grading */
+  filter: blur(4px) brightness(0.55) contrast(1.15) saturate(1.2);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Grid pattern (Scanline) overlay */
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.18) 0px,
+    rgba(0, 0, 0, 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Academic vignette overlay - Tinted with deep blue edge-falloff */
+.vignette-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.05) 15%,
+    var(--primary-navy) 100%
+  );
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+}
+
+.hero-text-wrap {
+  max-width: 1100px; /* Expanded for a bold horizontal poster layout */
+  color: var(--text-white);
+  z-index: 5;
+  will-change: transform, opacity;
+}
+
+/* Loud uppercase title architecture inspired by LamboType rules */
+.hero-title {
+  font-family: var(--font-title);
+  font-size: clamp(5rem, 13vw, 11rem); /* Extreme massive scale for graphic poster impact */
+  font-weight: 800;
+  line-height: 0.88; /* Dense overlapping line-height for block typography */
+  margin-bottom: 24px;
+  letter-spacing: -3.5px; /* Heavy negative tracking for stamped steel effect */
+  text-transform: uppercase;
+}
+
+/* Thin technical subtitle (Muted Navy Gray) */
+.hero-subtitle {
+  font-family: var(--font-title);
+  font-size: clamp(1.05rem, 1.8vw, 1.5rem); /* Enlarged for graphic layout balance */
+  line-height: 1.3;
+  color: var(--text-gray);
+  max-width: 900px;
+  letter-spacing: 2px; /* Generous technical tracking for contrast */
+  text-transform: uppercase; /* Aligned with brand authority */
+}
+
+/* Lamborghini Gold Highlight for First Letters of I-I-C-A */
+.highlight-letter {
+  color: var(--accent-gold);
+  font-weight: 800; /* Extra heavy for graphic contrast */
+}
+
+/* Elegant gold academic quote block */
+.hero-quote {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem); /* Highly legible large poster quote */
+  font-style: italic;
+  color: var(--accent-gold); /* Warm amber gold text */
+  line-height: 1.5;
+  opacity: 0.95;
+  letter-spacing: 0.5px;
+  max-width: 800px;
+  border-left: 3px solid var(--accent-gold); /* Thicker gold bar for visual weight */
+  padding-left: 28px; /* Generous breathing room inside the quote */
+  margin-top: 48px; /* Strong vertical grid layout split */
+}
+
+/* Content Section (Monolithic Dark Canvas) */
+.content-section {
+  position: relative;
+  background-color: var(--primary-navy); /* Unified background to remove the dividing line */
+  color: var(--text-white);
+  min-height: 100vh;
+  z-index: 20;
+  box-shadow: none; /* Shadow removed for a clean seamless flow */
+  padding: 140px 0 120px 0; /* Generous 140px spacing for maximum luxury visual breathing room */
+  box-sizing: border-box;
+}
+
+#about {
+  transform: translate3d(0, -32vh, 0); /* Locked 3cm magnet offset matching targetBottom */
+  margin-bottom: -32vh;
+}
+
+.about-center,
+.section-center {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.about-center .section-desc,
+.section-center .section-desc {
+  margin: 0 auto;
+}
+
+/* Gallery Container & Grid Styles (KakaoGames Inspired) */
+.gallery-container {
+  margin-top: 100px;
+}
+
+.gallery-grid-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Exactly 5 cards in a single row */
+  gap: 24px;
+}
+
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.card-media {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Strict square geometry layout */
+  overflow: hidden;
+  border-radius: 20px; /* Uniform rounded corners enforced */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Sophisticated ultra-thin faint gray border */
+  background-color: var(--deep-navy-iron);
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Absolutely prevents image squeezing or distortion */
+  border-radius: 20px; /* Enforces clean rounded crop */
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-card:hover .card-img {
+  transform: scale(1.05); /* Subtly breathes under hover */
+}
+
+.card-info {
+  padding: 14px 0 0 0; /* Optimized tight gap below image */
+  text-align: left;
+  min-height: 60px; /* Enforces equal height for the text area to keep image alignment absolute */
+}
+
+.card-tag {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-gold); /* Gold tags matching Lamborghini accent */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 0.78rem; /* Extremely sleek and tiny gallery catalog font size */
+  font-weight: 500; /* Clean medium weight */
+  color: rgba(255, 255, 255, 0.75); /* Calm elegant white-gray tone */
+  line-height: 1.6;
+  letter-spacing: -0.1px;
+  word-break: keep-all; /* Prevents awkward single-character line wraps in Korean */
+  transition: color 0.3s ease;
+}
+
+.gallery-card:hover .card-title {
+  color: var(--accent-gold);
+}
+
+/* HanVit Inspired Premium Certificate Showcase */
+.cert-showcase-container {
+  margin: 220px auto 0 auto !important; /* Enforces 220px margin-top override over the default container style */
+  padding-top: 100px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Soft premium top dividing line */
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr; /* Swapped asymmetric ratio to match certificate on left, video on right */
+  gap: 80px;
+  align-items: stretch; /* Stretch columns to guarantee perfect equal vertical height alignment */
+}
+
+.cert-video-box {
+  position: relative; /* Established for scanline pseudo-overlay */
+  width: 100%;
+  height: 100%; /* Spans 100% of the grid height */
+  overflow: hidden;
+  border-radius: 24px;
+  border: none; /* Removed borders per user request */
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
+  background-color: var(--deep-navy-iron);
+}
+
+/* CRT Retro Monitor Scanline Overlay to darken & soften video contrast */
+.cert-video-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  );
+  background-size: 100% 4px; /* Microscanlines */
+  z-index: 2;
+  opacity: 0.9;
+}
+
+.cert-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+  filter: brightness(0.55) saturate(0.8) contrast(1.05); /* Softened and darkened retro palette */
+}
+
+.cert-text-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  margin-bottom: 44px; /* Separation margin between title and content grid */
+}
+
+.cert-sub {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  letter-spacing: 2.5px;
+}
+
+.cert-title-big {
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text-white);
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+.cert-badge-icon {
+  width: 58px; /* Enlarged badge size */
+  height: 58px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 14px;
+  margin-top: -10px; /* Exact align to baseline for larger scale */
+  filter: drop-shadow(0 2px 12px rgba(255, 192, 0, 0.5)); /* Golden aura glow */
+}
+
+.cert-reg-num {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-gray);
+  display: block;
+  margin-top: 8px;
+}
+
+.cert-img-frame {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+}
+
+.cert-img-doc {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-img-frame:hover .cert-img-doc {
+  transform: scale(1.03); /* Subtle zoom under hover */
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0; /* Removed duplicated vertical padding that caused massive gap */
+}
+
+/* Asymmetric luxury layout grid for About */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.9fr; /* 1.1:1.9 Asymmetric ratio */
+  gap: 80px;
+  align-items: center;
+}
+
+.about-text {
+  text-align: left;
+}
+
+.about-text .section-desc {
+  margin: 0; /* Align description left */
+}
+
+.about-media {
+  width: 100%;
+}
+
+.image-frame {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0px; /* Pure rigid zero border-radius standard */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
+  background-color: var(--deep-navy-iron);
+}
+
+.about-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-frame:hover .about-img {
+  transform: scale(1.04); /* Subtly breathes under hover */
+}
+
+/* Thin technical section index label inspired by Lamborghini metadata UI */
+.section-label {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--accent-gold); /* Shines gold in darkness */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* High-contrast Technical Section Title */
+.section-title {
+  font-size: clamp(2.2rem, 5.0vw, 3.8rem);
+  font-weight: 800;
+  color: var(--text-white);
+  font-family: var(--font-title);
+  letter-spacing: -1px; /* Tighter for modern high-contrast aesthetic */
+  margin-bottom: 24px;
+  line-height: 1.15;
+}
+
+.section-desc {
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  color: var(--text-gray);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  letter-spacing: 0.3px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.35;
+    color: var(--text-white);
+  }
+  50% {
+    opacity: 0.85;
+    color: var(--accent-gold);
+  }
+}
+
+/* Responsive adjustments for premium seamless scaling */
+@media (max-width: 1024px) {
+  .logo-img {
+    width: 38px;
+    height: 38px;
+  }
+  .logo-text {
+    font-size: 1.6rem;
+  }
+  .nav {
+    gap: 16px;
+  }
+  .nav a {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    width: 95%;
+  }
+  .logo-img {
+    width: 32px;
+    height: 32px;
+  }
+  .logo-text {
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+  }
+  .nav {
+    gap: 10px; /* Highly compact menu spacing to keep everything inline */
+  }
+  .nav a {
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+  }
+  .lang-btn {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+  .content-section {
+    padding: 35px 0; /* Ultra-compact vertical padding on mobile */
+  }
+  #about {
+    transform: translate3d(0, -26vh, 0); /* Locked mobile magnet offset matching targetBottom */
+    margin-bottom: -26vh;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .about-text {
+    text-align: center;
+  }
+  .about-text .section-desc {
+    margin: 0 auto;
+  }
+  .gallery-container {
+    margin-top: 60px;
+  }
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .cert-showcase-container {
+    margin-top: 80px;
+    padding-top: 60px;
+  }
+  .cert-badge-icon {
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    margin-top: -4px;
+  }
+}
+
+/* Touch & Easing Horizontal Swipe Slider for Tablet & Mobile */
+@media (max-width: 1200px) {
+  .gallery-grid-row {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 10px 4% 30px 4%;
+    margin: 0 -4%; /* Bleed edge to edge for smooth swipe */
+    gap: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide for Firefox */
+  }
+  .gallery-grid-row::-webkit-scrollbar {
+    display: none; /* Hide for Chrome/Safari */
+  }
+  .gallery-card {
+    flex: 0 0 280px; /* Rigid slide width */
+    scroll-snap-align: start;
+  }
+  .card-media {
+    aspect-ratio: 1 / 1;
+  }
+  .card-title {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    display: none; /* Hide logo text on super small screen, keeping only the gold medal symbol for space efficiency */
+  }
+  .nav {
+    gap: 8px;
+  }
+  .nav a {
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+  }
+}

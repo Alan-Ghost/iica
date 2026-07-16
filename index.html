@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IICA - 국제지도자 전문협회</title>
+  <!-- Google Fonts & Pretendard -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <!-- Header: 투명에서 스크롤 시 화이트/블랙으로 전환되는 현대적 네비게이션 -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo" id="logo-btn">
+        <img src="./logo.svg" alt="IICA Logo" class="logo-img">
+        <span class="logo-text">IICA</span>
+      </div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#partnership">Partnership</a>
+      </nav>
+      <div class="lang-selector">
+        <button class="lang-btn">KR</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section: Sticky를 활용한 스크롤 비디오 인터랙션 구역 -->
+  <section class="hero-section" id="hero">
+    <div class="video-container">
+      <video id="bg-video" autoplay muted loop playsinline preload="metadata">
+        <source src="./Background_Video/IICA.m4v" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <!-- 격자 무늬 레이어 (Scanline Overlay) -->
+      <div class="grid-overlay"></div>
+      <!-- 어둡고 몽환적인 그라데이션 비네팅 레이어 -->
+      <div class="vignette-overlay"></div>
+      
+      <div class="hero-overlay">
+        <div class="hero-text-wrap">
+          <h1 class="hero-title">IICA</h1>
+          <p class="hero-subtitle"><span class="highlight-letter">I</span>nternational <span class="highlight-letter">I</span>nstructor <span class="highlight-letter">C</span>ertification <span class="highlight-letter">A</span>ssociation</p>
+          <blockquote class="hero-quote">"The only way to do great work is to love what you do"</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="content-section">
+    <div class="container about-center">
+      <span class="section-label">01 // ABOUT IICA</span>
+      <h2 class="section-title">이론을 넘어 무대로</h2>
+    </div>
+
+    <!-- KakaoGames Inspired 5-Image Horizontal Row Card Gallery -->
+    <div class="container gallery-container">
+      <div class="gallery-grid-row">
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_01.jpg" alt="IICA Education" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">국내외 대형 대회가 증명하는 실전형 지도자 양성기관</h3>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_02.jpg" alt="IICA History &amp; Experience" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">NMBC 시장기 대회 및 에임하이월드파이널 등 20년 넘는 대회 개최 및 운영</h3>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_03.jpg" alt="IICA Credentials" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">국능원 정식 민간자격 등록기관</h3>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_04.jpg" alt="IICA Global Network" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">글로벌 및 전국 규모 대회 주관</h3>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_05.jpg" alt="IICA Innovation" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">모바일 앱 자격 검증 시스템 도입</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HanVit Inspired Premium Certificate & Video Showcase -->
+    <div class="container cert-showcase-container">
+      <!-- Title is placed on top of the grid to prevent video encroachment -->
+      <div class="cert-text-header">
+        <h3 class="cert-title-big">
+          한국직업능력연구원 민간자격등록증
+          <img src="./images/01about/certified.png" alt="IICA Certified Badge" class="cert-badge-icon"><br>
+          <span class="cert-reg-num">(등록번호: 제 2018-003048호)</span>
+        </h3>
+      </div>
+
+      <div class="cert-grid">
+        <!-- Left Column: Registration Certificate Image -->
+        <div class="cert-img-frame">
+          <img src="./images/01about/3048호.jpg" alt="IICA 민간자격등록증 실물" class="cert-img-doc">
+        </div>
+        <!-- Right Column: Reference Video -->
+        <div class="cert-video-box">
+          <video src="./images/01about/3048호_영상.mp4" autoplay loop muted playsinline class="cert-video"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="content-section">
+    <div class="container section-center">
+      <span class="section-label">02 // PORTFOLIO</span>
+      <h2 class="section-title">세계 무대에서 활약하는 역사</h2>
+    </div>
+
+    <div class="container gallery-container">
+      <div class="gallery-grid-row">
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_02.jpg" alt="Portfolio 1" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">스트릿 댄스 분야 국내 최고 권위 지도사 활약</h3>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_01.jpg" alt="Portfolio 2" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">벨리 댄스 및 예술 체육 통합 지도사 네트워크</h3>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_03.jpg" alt="Portfolio 3" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">전국 50개 이상의 지부 교육 성과 아카이빙</h3>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_04.jpg" alt="Portfolio 4" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">대규모 무대 연출 및 기획 전문 디렉션</h3>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_05.jpg" alt="Portfolio 5" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">차세대 영재 발굴을 위한 글로벌 포트폴리오</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications" class="content-section">
+    <div class="container section-center">
+      <span class="section-label">03 // CERTIFICATIONS</span>
+      <h2 class="section-title">글로벌 표준 지도사 자격 검증</h2>
+    </div>
+
+    <div class="container gallery-container">
+      <div class="gallery-grid-row">
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_03.jpg" alt="Cert 1" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">국제 강사 자격증 정식 발급 및 해외 취업 지원</h3>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_04.jpg" alt="Cert 2" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">문화체육관광부 정식 민간자격 등록 검증 코스</h3>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_01.jpg" alt="Cert 3" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">심리 치료 및 실전 지도법 통합 교육 체계</h3>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_05.jpg" alt="Cert 4" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">체계적인 강사 평가 및 모바일 자격 조회 시스템</h3>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_02.jpg" alt="Cert 5" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">정기 보수 교육을 통한 지속 가능한 리더 양성</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership Section -->
+  <section id="partnership" class="content-section">
+    <div class="container section-center">
+      <span class="section-label">04 // PARTNERSHIP</span>
+      <h2 class="section-title">글로벌 교육 협회 및 파트너십 연대</h2>
+    </div>
+
+    <div class="container gallery-container">
+      <div class="gallery-grid-row">
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_04.jpg" alt="Partner 1" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">AIM HIGH WORLD FINALS 공식 파트너쉽</h3>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_03.jpg" alt="Partner 2" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">NMBC 스포츠 교육 기구 정식 협력 단체</h3>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_05.jpg" alt="Partner 3" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">글로벌 댄서 연맹 국제 교육 인증 제휴</h3>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_02.jpg" alt="Partner 4" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">전국 예술 교육 아카데미 연합 연대</h3>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="gallery-card">
+          <div class="card-media">
+            <img src="./images/main_banner/banner_01.jpg" alt="Partner 5" class="card-img">
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">모바일 인증 파트너 기업 기술 제휴</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="./index.js"></script>
+</body>
+</html>
