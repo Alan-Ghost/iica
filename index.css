@@ -895,7 +895,7 @@ html, body {
 /* Mobile responsive scaling safety */
 @media (max-width: 768px) {
   .scroll-zoom-document-area {
-    height: 280px !important;
+    height: 420px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -904,14 +904,14 @@ html, body {
   .scroll-zoom-wrapper {
     position: relative !important;
     top: 0 !important;
-    width: 130px;
-    height: 185px;
+    width: 180px;
+    height: 255px;
     margin: 0 auto;
   }
   .scroll-zoom-badge {
-    width: 58px; /* Enlarged for mobile readability */
-    top: 10px; /* Positioned inside card boundary */
-    right: 10px; /* Positioned inside card boundary */
+    width: 50px;
+    top: -8px;
+    right: -8px;
   }
 }
 

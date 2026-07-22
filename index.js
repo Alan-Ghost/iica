@@ -224,14 +224,7 @@ window.addEventListener('scroll', () => {
   
   if (!docArea || !wrapper || !license || !badge) return;
 
-  // Safe guard: bypass scroll zoom on mobile
-  if (window.innerWidth <= 768) {
-    wrapper.style.transform = '';
-    wrapper.style.opacity = '';
-    badge.classList.add('active'); // Keep badge active on mobile
-    return;
-  }
-
+  const isMobile = window.innerWidth <= 768;
   const rect = docArea.getBoundingClientRect();
   const winHeight = window.innerHeight;
   const docAreaHeight = rect.height;
