@@ -296,6 +296,311 @@ html, body {
   box-sizing: border-box;
 }
 
+#portfolio {
+  padding-top: 20px !important; /* Heavily compressed to snap directly below the zoom license showcase */
+}
+
+/* Portfolio Refined Header Typography & Sub-branding */
+.portfolio-header-wrap {
+  margin-bottom: 50px !important; /* Compressed to stay tightly aligned */
+}
+
+.portfolio-large-title {
+  font-size: clamp(3.2rem, 6.2vw, 5.2rem) !important; /* Ultra-bold oversized visual impact */
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #ffffff 40%, var(--accent-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.portfolio-large-title span {
+  background: inherit; /* Perfect inheritance of parent gold gradient to split spans */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portfolio-sub-brands {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  overflow: visible;
+  perspective: 1000px;
+}
+
+/* Option B: 3D Depth Pop-out & Neon Glow Pulse Styling */
+.scroll-pulse-pop .pulse-item {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  transform: translate3d(0, 0, -50px) scale(0.85); /* Deep 3D recessed state */
+  opacity: 0;
+  filter: blur(4px);
+  transition: transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              opacity 0.5s ease, 
+              filter 0.5s ease;
+}
+
+.scroll-pulse-pop .pulse-divider {
+  display: inline-block;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: scale(0.2);
+  transition: transform 0.5s ease 0.1s, opacity 0.5s ease 0.1s;
+}
+
+/* Triggered State: Elastic Pop-out to front with Zero Blur & Full Opacity */
+.scroll-pulse-pop.active .pulse-item {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.scroll-pulse-pop.active .pulse-divider {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Radiant Gold Neon Glow Pulse Ring expanding in background */
+.gold-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 45px;
+  transform: translate(-50%, -50%) scale(0.2);
+  border-radius: 50px;
+  background: radial-gradient(ellipse at center, rgba(255, 192, 0, 0.55) 0%, rgba(255, 192, 0, 0) 75%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.95s ease-out;
+}
+
+.scroll-pulse-pop.active .gold-pulse-ring {
+  transform: translate(-50%, -50%) scale(3.2);
+  opacity: 0.85;
+}
+
+/* Portfolio Category Blocks Perfectly Equalized Spacing (모든 갤러리 그림 바닥 ➔ 타이틀 간격 180px 100% 자로 잰 듯 완벽 매칭) */
+.portfolio-block {
+  position: relative;
+  width: 100%;
+}
+
+.portfolio-block + .portfolio-block {
+  margin-top: 60px !important;
+  padding-top: 0 !important;
+}
+
+.portfolio-block .portfolio-header-wrap {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Regional & Category Title Single-Line & No-Ghost Fitting */
+.regional-title {
+  font-size: clamp(1.4rem, 3.4vw, 3.3rem) !important;
+  white-space: nowrap !important;
+}
+
+/* Certification Archive Title Single-Line & No-Ghost Fitting */
+.cert-title {
+  font-size: clamp(1.8rem, 4.0vw, 3.8rem) !important;
+  white-space: nowrap !important;
+}
+
+.regional-title .split-left, 
+.regional-title .split-right,
+.cert-title .split-left,
+.cert-title .split-right {
+  font-size: inherit !important;
+  letter-spacing: normal !important;
+}
+
+/* ==========================================================================
+   3-Row Alternating Infinite Marquee Gallery (AI Creator Awards Inspired)
+   ========================================================================== */
+.multi-row-marquee-gallery {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 40px 0 0 0 !important;
+  margin-bottom: 120px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-row {
+  position: relative;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Row 1 & Row 3: Leftward Infinite Flow */
+.row-left .marquee-track {
+  animation: marqueeScrollLeft 38s linear infinite;
+}
+
+/* Row 2: Rightward Infinite Flow (Alternating) */
+.row-right .marquee-track {
+  animation: marqueeScrollRight 42s linear infinite;
+}
+
+@keyframes marqueeScrollLeft {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marqueeScrollRight {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Upscaled Pure Image Marquee Card Styling */
+.marquee-card {
+  position: relative;
+  width: 440px;
+  height: 295px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0b0f19;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              border-color 0.4s ease, 
+              box-shadow 0.4s ease;
+}
+
+.marquee-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.marquee-card:hover {
+  transform: scale(1.05) translateZ(0);
+  z-index: 10;
+  border-color: rgba(255, 192, 0, 0.85);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.88), 
+              0 0 30px rgba(255, 192, 0, 0.4);
+}
+
+.marquee-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Full-Screen Portfolio Lightbox Modal */
+.portfolio-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 15, 0.95);
+  backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.portfolio-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 3rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.lightbox-close-btn:hover {
+  color: var(--accent-gold);
+}
+
+.portfolio-lightbox-body {
+  max-width: 92vw;
+  max-height: 88vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.portfolio-lightbox-body img {
+  max-width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 192, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .marquee-card {
+    width: 220px;
+    height: 150px;
+  }
+  .multi-row-marquee-gallery {
+    gap: 12px;
+  }
+}
+
+
+
+.sub-brand-item {
+  font-family: var(--font-title);
+  font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+  font-weight: 800;
+  color: var(--accent-gold);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(255, 192, 0, 0.15);
+}
+
+.sub-brand-divider {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  font-weight: 300;
+}
+
+.portfolio-desc {
+  font-size: clamp(1.05rem, 1.25vw, 1.25rem) !important;
+  color: var(--text-gray);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
+}
+
 #about {
   transform: translate3d(0, -32vh, 0); /* Locked 3cm magnet offset matching targetBottom */
   margin-bottom: -32vh;
@@ -316,18 +621,22 @@ html, body {
 .gallery-container {
   width: 100%;
   overflow: hidden;
-  margin-top: 80px;
+  margin-top: 40px;
+  padding: 50px 0; /* Plentiful vertical headroom for 3D card height expansion */
   position: relative;
+  perspective: 900px; /* Enhanced 3D depth perspective */
   /* Luxurious side fade gradient mask */
-  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
 
 .gallery-ticker-wrapper {
   display: flex;
   width: max-content;
-  animation: marqueeLTR 35s linear infinite;
+  padding: 10px 0;
+  animation: marqueeLTR 32s linear infinite;
   will-change: transform;
+  transform-style: preserve-3d;
 }
 
 .gallery-ticker-wrapper:hover {
@@ -336,63 +645,71 @@ html, body {
 
 .gallery-track {
   display: flex;
-  gap: 24px;
-  padding-right: 24px; /* Seamless gap between duplicate tracks */
+  gap: 32px;
+  padding-right: 32px; /* Seamless gap between duplicate tracks */
+  transform-style: preserve-3d;
 }
 
 .gallery-card {
-  flex: 0 0 360px; /* Rigid 16:9 card width on desktop */
-  width: 360px;
+  flex: 0 0 380px; /* Wide horizontal card width matching original 16:10 images */
+  width: 380px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  border-radius: 20px;
+  overflow: hidden; /* Guarantees pristine rounded corners during 3D scale transforms */
+  isolation: isolate;
+  will-change: transform;
+  transition: filter 0.3s ease;
 }
 
 .card-media {
+  position: relative; /* Established for absolute text overlay */
   width: 100%;
-  aspect-ratio: 16 / 9; /* Strict 16:9 Widescreen ratio */
+  aspect-ratio: 16 / 10; /* Original Landscape Widescreen Ratio */
   overflow: hidden;
-  border-radius: 16px; /* Enforced sleek rounded corners */
-  border: 1px solid rgba(255, 255, 255, 0.08); /* Sophisticated ultra-thin faint gray border */
+  border-radius: 20px; /* Enforced sleek rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.12); /* Sophisticated ultra-thin faint gray border */
   background-color: var(--deep-navy-iron);
+  backface-visibility: hidden;
 }
 
 .card-img {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Absolutely prevents image squeezing or distortion */
-  border-radius: 16px;
+  border-radius: 18px;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gallery-card:hover .card-img {
-  transform: scale(1.05); /* Subtly breathes under hover */
+  transform: scale(1.06); /* Subtly breathes under hover */
 }
 
-.card-info {
-  padding: 14px 0 0 0; /* Optimized tight gap below image */
-  text-align: left;
-  min-height: 54px;
-}
-
-.card-tag {
-  font-family: var(--font-title);
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--accent-gold);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 12px;
+/* Integrated In-Image Text Gradient Overlay */
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 36px 20px 18px 20px;
+  background: linear-gradient(to top, rgba(8, 12, 22, 0.95) 0%, rgba(8, 12, 22, 0.65) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .card-title {
-  font-size: 0.78rem; /* Sleek catalog font size */
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.6;
-  letter-spacing: -0.1px;
+  font-size: 0.86rem; /* Highly legible enlarged catalog title */
+  font-weight: 700; /* Bold high-contrast weight */
+  color: #ffffff; /* Ultra-bright crisp pure white */
+  line-height: 1.45;
+  letter-spacing: -0.3px;
   word-break: keep-all; /* Keeps Korean words whole */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85); /* Deep shadow for maximum readability over bright photos */
   transition: color 0.3s ease;
 }
 
@@ -410,118 +727,397 @@ html, body {
   }
 }
 
-/* HanVit Inspired Premium Certificate Showcase */
-.cert-showcase-container {
-  margin: 220px auto 0 auto !important; /* Enforces 220px margin-top override over the default container style */
+/* President Welcome Greeting & Profile Section (Luxury Editorial) */
+.president-header-area {
+  margin-top: 220px !important;
   padding-top: 100px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Soft premium top dividing line */
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Premium boundary separator moved here */
 }
 
-.cert-grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr; /* Swapped asymmetric ratio to match certificate on left, video on right */
-  gap: 80px;
-  align-items: stretch; /* Stretch columns to guarantee perfect equal vertical height alignment */
+.text-wide-title {
+  max-width: 1200px; /* Expanded from 900px to ensure the entire slogan stays on one single line */
+  margin: 0 auto;
+  line-height: 1.45 !important;
+  white-space: nowrap; /* Enforces single line rendering on desktop screens */
 }
 
-.cert-video-box {
-  position: relative; /* Established for scanline pseudo-overlay */
-  width: 100%;
-  height: 100%; /* Spans 100% of the grid height */
-  overflow: hidden;
-  border-radius: 24px;
-  border: none; /* Removed borders per user request */
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
-  background-color: var(--deep-navy-iron);
-}
-
-/* CRT Retro Monitor Scanline Overlay to darken & soften video contrast */
-.cert-video-box::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0) 50%, 
-    rgba(0, 0, 0, 0.35) 50%
-  );
-  background-size: 100% 4px; /* Microscanlines */
-  z-index: 2;
-  opacity: 0.9;
-}
-
-.cert-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 24px;
-  display: block;
-  filter: brightness(0.55) saturate(0.8) contrast(1.05); /* Softened and darkened retro palette */
-}
-
-.cert-text-header {
+/* Scroll-driven Title Splitting and Merging Effect */
+.scroll-split-title {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 16px;
-  text-align: left;
-  margin-bottom: 44px; /* Separation margin between title and content grid */
+  align-items: center;
 }
 
-.cert-sub {
+.split-left, .split-right {
+  display: inline-block;
+  will-change: transform, opacity;
+  /* Premium smoothing transition fills in desktop scroll wheel steps flawlessly */
+  transition: transform 0.22s cubic-bezier(0.1, 0.8, 0.2, 1), 
+              opacity 0.22s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.president-welcome-container {
+  margin: 140px auto 0 auto !important; /* Expanded from 60px to 140px to completely prevent the scaled 1.5x silhouette from encroaching on the title text */
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+.president-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr; /* Optimized balance for larger silhouette + 2-col timeline layout */
+  gap: 50px;
+  align-items: center;
+}
+
+/* Left Column: Huge Clean Silhouette Portrait (Reference CEO Style) */
+.president-img-col {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 620px; /* Restored to original golden height */
+  align-items: flex-end; /* Ground the feet neatly at the bottom */
+  overflow: visible; /* Allows scaled-up portrait to overflow nicely */
+}
+
+.president-img-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none; 
+  background: none; 
+  box-shadow: none; 
+  border-radius: 0;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.president-photo {
+  position: absolute;
+  bottom: 0;
+  width: auto; 
+  height: 100%; 
+  max-height: 100%;
+  object-fit: contain; 
+  /* Scaled up 1.5x with bottom-center anchor so it scales upward from the ground */
+  transform: scale(1.5);
+  transform-origin: bottom center;
+  filter: contrast(1.08) brightness(1.03); 
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+}
+
+.president-img-frame:hover .president-photo {
+  transform: scale(1.53) translateY(-4px); /* Very subtle premium hover breath at 1.5x scale */
+}
+
+/* Clean background - disabled beam glows */
+.president-photo-glow {
+  display: none;
+}
+
+/* Scroll-linked 3D Zoom Document Showcase (Luxury Scrolling Experience) */
+.scroll-zoom-document-area {
+  position: relative;
+  width: 100%;
+  height: 85vh; /* Extensively compressed to lock the scroll transition tight */
+  margin-top: 40px;
+  margin-bottom: 0px !important; /* Zero margin bottom to ensure perfect contact with Portfolio section */
+  display: block; /* Switched to block layout to let children stick correctly inside page flow */
+  overflow: visible; 
+  perspective: 1200px;
+}
+
+.scroll-zoom-wrapper {
+  position: sticky;
+  top: 15vh; /* Keep top border safely locked at 15% viewport height margin */
+  height: 52vh; /* Secure absolute height limit (52% of viewport) to guarantee zero screen bleed */
+  aspect-ratio: 1 / 1.414; /* Matches exact international A4 license aspect ratio */
+  width: auto; /* Let width resolve dynamically based on A4 aspect ratio to prevent cropping */
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, opacity, z-index;
+  transform-style: preserve-3d;
+  transform-origin: top center; /* CRITICAL: prevents top edge from breaking vertical screen bounds when scaled */
+  transition: z-index 0.25s ease;
+  z-index: 10;
+  overflow: visible; /* Prevents overflow clipping */
+}
+
+/* Elevates z-index when expanding to full-screen to overlay other elements naturally */
+.scroll-zoom-wrapper.full-expansion {
+  z-index: 9999;
+}
+
+.scroll-zoom-license {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Absolute contain: guarantees zero clipping of top/bottom credentials */
+  border-radius: 12px;
+  border: 2px solid rgba(255, 192, 0, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  will-change: transform, opacity, filter;
+  transition: filter 0.4s ease, border-color 0.4s ease;
+  background: #0d121f;
+}
+
+.scroll-zoom-license.active {
+  border-color: rgba(255, 192, 0, 0.6);
+  filter: brightness(1.05) contrast(1.04);
+}
+
+.scroll-zoom-badge {
+  position: absolute;
+  top: 20px; /* Shifted inside the document boundary to avoid clipping */
+  right: 20px; /* Shifted inside the document boundary to avoid clipping */
+  width: 90px; /* Scaled up for dominant premium presence */
+  height: auto;
+  z-index: 12;
+  opacity: 0;
+  transform: scale(0.3) rotate(-35deg);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  /* Extremely elegant elastic bounce animation when triggered */
+  transition: transform 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              opacity 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Triggered state: badge pops in with active rotational lock */
+.scroll-zoom-badge.active {
+  opacity: 1;
+  transform: scale(1) rotate(-6deg);
+}
+
+/* Mobile responsive scaling safety */
+@media (max-width: 768px) {
+  .scroll-zoom-document-area {
+    height: 280px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 30px;
+  }
+  .scroll-zoom-wrapper {
+    position: relative !important;
+    top: 0 !important;
+    width: 130px;
+    height: 185px;
+    margin: 0 auto;
+  }
+  .scroll-zoom-badge {
+    width: 58px; /* Enlarged for mobile readability */
+    top: 10px; /* Positioned inside card boundary */
+    right: 10px; /* Positioned inside card boundary */
+  }
+}
+
+/* Right Column: Career & Timeline Honors */
+.president-career-col {
+  text-align: left;
+  padding-top: 10px; /* Moved up to match the height of the large silhouette */
+}
+
+.career-section-label {
   font-family: var(--font-title);
   font-size: 0.72rem;
   font-weight: 800;
   color: var(--accent-gold);
-  letter-spacing: 2.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.cert-title-big {
-  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+.president-name-title {
+  font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 800;
   color: var(--text-white);
-  line-height: 1.35;
   letter-spacing: -0.5px;
+  margin-bottom: 6px;
 }
 
-.cert-badge-icon {
-  width: 58px; /* Enlarged badge size */
-  height: 58px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 14px;
-  margin-top: -10px; /* Exact align to baseline for larger scale */
-  filter: drop-shadow(0 2px 12px rgba(255, 192, 0, 0.5)); /* Golden aura glow */
-}
-
-.cert-reg-num {
+.president-name-title .title-sub {
   font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--text-gray);
-  display: block;
-  margin-top: 8px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.45);
+  margin-left: 12px;
+  letter-spacing: 1px;
 }
 
-.cert-img-frame {
+.president-main-role {
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: var(--accent-gold);
+  margin-bottom: 26px;
+  position: relative;
+  display: inline-block;
+}
+
+.president-main-role::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--accent-gold);
+}
+
+/* Premium Biography Vertical Text Ticker (Scrolling from Top to Bottom - 5 Lines) */
+.career-ticker-container {
+  position: relative;
   width: 100%;
+  height: 150px; /* Exact height for 5 lines (30px per line * 5 lines) */
+  background: rgba(255, 192, 0, 0.03); /* Soft gold transparency backdrop */
+  border-left: 3px solid var(--accent-gold); /* Solid gold indicator bar on the left */
   overflow: hidden;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+  margin-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
-.cert-img-doc {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 20px;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.career-ticker-track.vertical-scroll {
+  display: flex;
+  flex-direction: column;
+  /* Animates smoothly from bottom to top - speed scaled up by 1.2x (32s / 1.2 = ~27s) */
+  animation: scrollVerticalUp 27s infinite linear;
 }
 
-.cert-img-frame:hover .cert-img-doc {
-  transform: scale(1.03); /* Subtle zoom under hover */
+/* Premium micro-interaction: pauses scrolling when the user hovers to read closely */
+.career-ticker-container:hover .vertical-scroll {
+  animation-play-state: paused;
+}
+
+.ticker-item-ver {
+  height: 30px;
+  line-height: 30px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  transition: color 0.3s ease;
+}
+
+.ticker-item-ver.ticker-subheader {
+  color: var(--accent-gold);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid rgba(255, 192, 0, 0.2); /* Clean editorial underline accent */
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.ticker-item-ver:hover {
+  color: var(--accent-gold);
+}
+
+.ticker-dot-orange {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--accent-gold);
+  box-shadow: 0 0 6px rgba(255, 192, 0, 0.8);
+  flex-shrink: 0;
+}
+
+/* Vertical Scrolling Loop from Bottom to Top */
+@keyframes scrollVerticalUp {
+  0% {
+    transform: translate3d(0, 0, 0); /* Starts at zero (bottom of the loop) */
+  }
+  100% {
+    transform: translate3d(0, -50%, 0); /* Rolls upward to the halfway mark (seamless duplicate transition) */
+  }
+}
+
+/* Bottom Welcome Message editorial style */
+.president-message-wrap {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+}
+
+.message-quote-box {
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 30px;
+}
+
+.quote-mark {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  font-size: 4rem;
+  font-family: var(--font-title);
+  color: rgba(255, 192, 0, 0.25);
+  line-height: 1;
+}
+
+.quote-highlight-text {
+  font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+  font-weight: 600;
+  color: var(--text-white);
+  line-height: 1.55;
+  letter-spacing: -0.2px;
+  word-break: keep-all;
+}
+
+.message-body-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.8;
+  letter-spacing: -0.1px;
+}
+
+.message-body-text p {
+  margin: 0;
+  word-break: keep-all;
+}
+
+.message-footer-signature {
+  margin-top: 50px;
+  text-align: right;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  padding-top: 30px;
+}
+
+.signature-thank {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 8px;
+}
+
+.signature-name {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.signature-name strong {
+  color: var(--text-white);
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-left: 8px;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
 }
 
 .container {
@@ -678,19 +1274,89 @@ html, body {
   .gallery-container {
     margin-top: 60px;
   }
-  .cert-grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
+  .president-grid {
+    grid-template-columns: 1fr; /* Stacked layout on mobile */
+    gap: 40px;
+    text-align: center;
   }
-  .cert-showcase-container {
-    margin-top: 80px;
+  .president-career-col {
+    text-align: center;
+  }
+  .president-name-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .president-name-title .title-sub {
+    margin-left: 0;
+  }
+  .president-main-role {
+    display: inline-block;
+    margin: 0 auto 30px auto;
+  }
+  .president-main-role::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .president-header-area {
+    margin-top: 100px !important;
     padding-top: 60px;
   }
-  .cert-badge-icon {
-    width: 32px;
-    height: 32px;
-    margin-left: 8px;
-    margin-top: -4px;
+  .president-header-area .text-wide-title {
+    white-space: normal !important; /* Reverts back to wrapping on small mobile screen boundaries */
+  }
+  .scroll-split-title {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .split-left, .split-right {
+    transform: none !important;
+    opacity: 1 !important;
+    white-space: normal !important;
+    text-align: center;
+  }
+  .president-welcome-container {
+    margin-top: 75px !important;
+    padding-top: 0 !important;
+  }
+  .president-img-col {
+    height: 370px !important;
+    align-items: flex-end;
+  }
+  .president-img-frame {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .president-photo {
+    transform: scale(1.18) !important; /* Elegant 1.18x zoom scaled for narrow mobile screens */
+    transform-origin: bottom center !important;
+  }
+  .career-dual-box {
+    grid-template-columns: 1fr !important; /* Stacked vertically on mobile screens */
+    gap: 24px !important;
+  }
+  .message-quote-box {
+    padding-left: 0;
+    text-align: center;
+  }
+  .quote-mark {
+    display: block;
+    position: relative;
+    top: 0;
+    margin: 0 auto 10px auto;
+    text-align: center;
+  }
+  .quote-highlight-text {
+    font-size: 1.15rem;
+    line-height: 1.5;
+  }
+  .message-body-text {
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+  .message-footer-signature {
+    text-align: center;
   }
 }
 
