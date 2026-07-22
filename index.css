@@ -1124,7 +1124,8 @@ html, body {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0; /* Removed duplicated vertical padding that caused massive gap */
+  padding: 0 16px; /* 좌우 안전 패딩으로 모바일에서 텍스트 잘림 방지 */
+  box-sizing: border-box;
 }
 
 /* Asymmetric luxury layout grid for About */
@@ -1308,13 +1309,41 @@ html, body {
   }
   .scroll-split-title {
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 4px !important;
   }
   .split-left, .split-right {
     transform: none !important;
     opacity: 1 !important;
     white-space: normal !important;
     text-align: center;
+    word-break: keep-all;
+  }
+  .regional-title,
+  .cert-title {
+    white-space: normal !important;
+    font-size: clamp(1.4rem, 6vw, 2.2rem) !important;
+  }
+  .quote-highlight-text {
+    word-break: break-word;
+  }
+  .message-body-text p {
+    word-break: break-word;
+  }
+  .container {
+    width: 92%;
+    padding: 0 12px;
+  }
+  .portfolio-header-wrap {
+    padding: 0 8px;
+  }
+  .sub-brand-item {
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem) !important;
+    white-space: normal !important;
+    text-align: center;
+  }
+  .portfolio-desc {
+    word-break: keep-all;
+    padding: 0 8px;
   }
   .president-welcome-container {
     margin-top: 75px !important;
