@@ -1868,15 +1868,18 @@ html, body {
     white-space: normal !important; /* Reverts back to wrapping on small mobile screen boundaries */
   }
   .scroll-split-title {
-    flex-direction: column !important;
-    gap: 4px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
   }
   .split-left, .split-right {
-    transform: none !important;
-    opacity: 1 !important;
-    white-space: normal !important;
-    text-align: center;
-    word-break: keep-all;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    font-size: clamp(1.15rem, 5.2vw, 1.8rem) !important;
+    will-change: transform, opacity;
   }
   .regional-title,
   .cert-title {

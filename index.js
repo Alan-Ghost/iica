@@ -168,22 +168,8 @@ window.addEventListener('scroll', () => {
   const splitTitles = document.querySelectorAll('.scroll-split-title');
   if (splitTitles.length === 0) return;
 
-  // Safe guard: disable motion scroll link under mobile resolution (768px)
-  if (window.innerWidth <= 768) {
-    splitTitles.forEach(title => {
-      const leftText = title.querySelector('.split-left');
-      const rightText = title.querySelector('.split-right');
-      if (leftText && rightText) {
-        leftText.style.transform = '';
-        leftText.style.opacity = '';
-        rightText.style.transform = '';
-        rightText.style.opacity = '';
-      }
-    });
-    return;
-  }
-
   const winHeight = window.innerHeight;
+  const isMobile = window.innerWidth <= 768;
 
   splitTitles.forEach(title => {
     const leftText = title.querySelector('.split-left');
@@ -192,13 +178,13 @@ window.addEventListener('scroll', () => {
 
     const rect = title.getBoundingClientRect();
 
-    // Triggers only when each individual title is in scroll-view range
+    // Triggers when title is in scroll-view range (both mobile & desktop)
     if (rect.top < winHeight && rect.bottom > 0) {
       // Progress range: 0 (entering viewport) to 1 (leaving viewport)
       const progress = (winHeight - rect.top) / (winHeight + rect.height);
       
-      // Config: Maximum side displacement in pixels
-      const maxOffset = 180;
+      // Responsive Maximum side displacement in pixels (Mobile: ~100px, Desktop: ~180px)
+      const maxOffset = isMobile ? Math.min(window.innerWidth * 0.3, 110) : 180;
       
       // Linear multiplier (2.2) guarantees fast merge/lock by the time title reaches mid-screen
       const offset = Math.max(0, maxOffset * (1 - (progress * 2.2)));
