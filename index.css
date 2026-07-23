@@ -1949,34 +1949,99 @@ html, body {
   }
 }
 
-/* Responsive adjustments for Marquee Slider on Mobile & Tablet */
-@media (max-width: 1200px) {
-  .gallery-card {
-    flex: 0 0 300px;
-    width: 300px;
+/* ==========================================================================
+   Mobile Responsive Optimizations (iPhone 16 Pro Max & All Mobile Devices)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .header-inner {
+    width: 95%;
   }
 }
 
 @media (max-width: 768px) {
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden !important;
+  }
+
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .header-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 14px !important;
+    gap: 8px !important;
+  }
+
+  .logo {
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .logo-img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .logo-text {
+    font-size: 1.25rem !important;
+    letter-spacing: 1px !important;
+  }
+
+  .nav {
+    gap: 12px !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .nav a {
+    font-size: clamp(0.68rem, 2.5vw, 0.82rem) !important;
+    letter-spacing: 0.6px !important;
+    white-space: nowrap !important;
+  }
+
+  .lang-btn {
+    padding: 4px 10px !important;
+    font-size: 0.75rem !important;
+    flex-shrink: 0 !important;
+  }
+
   .gallery-card {
     flex: 0 0 250px;
     width: 250px;
   }
+  
   .card-title {
     font-size: 0.74rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
+  .header-inner {
+    padding: 0 10px !important;
+  }
+
   .logo-text {
-    display: none; /* Hide logo text on super small screen, keeping only the gold medal symbol for space efficiency */
+    display: none !important; /* Hide text on small screens, preserving gold medal symbol */
   }
+
   .nav {
-    gap: 8px;
+    gap: 8px !important;
   }
+
   .nav a {
-    font-size: 0.65rem;
-    letter-spacing: 0.5px;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.4px !important;
+  }
+
+  .lang-btn {
+    padding: 3px 8px !important;
+    font-size: 0.7rem !important;
   }
 }
 
