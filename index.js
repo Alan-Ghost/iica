@@ -485,7 +485,7 @@ function initMultiRowMarquee() {
         `;
       } else {
         card.innerHTML = `
-          <img src="${safeSrc}" alt="${item.title}" loading="lazy">
+          <img src="${safeSrc}" alt="${item.title}" loading="lazy" decoding="async">
         `;
       }
 
