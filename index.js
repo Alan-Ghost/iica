@@ -284,6 +284,8 @@ window.addEventListener('scroll', () => {
       pulsePop.classList.remove('active');
     }
   });
+
+
 });
 
 /* ==========================================================================
@@ -376,6 +378,7 @@ const certRow2Assets = [
 const certRow3Assets = [
   { title: '글로벌 표준 지도자 자격 검증 실적 아카이브', src: '/images/01about/cert_3048.jpg' },
   { title: '대한민국 주무부처 정식 등록 지도자 자격 검증서', src: '/images/01about/license.jpg' },
+  { title: '대한민국 주무부처 정식 등록 지도자 자격 검증서', src: '/images/01about/license.jpg' },
   { title: '국제 대표 지도자 공인 인증 배지', src: '/images/01about/certified_badge.png' },
   { title: 'IICA 사단법인 인가 공식 CERTIFIED 마크', src: '/images/01about/certified.png' },
   { title: '글로벌 표준 지도자 자격 검증 실적 아카이브', src: '/images/01about/cert_3048.jpg' }
@@ -398,27 +401,71 @@ function initMultiRowMarquee() {
   const lightboxImg = document.getElementById('portfolioLightboxImg');
   const lightboxClose = document.getElementById('portfolioLightboxClose');
 
-  function openLightbox(src) {
-    if (lightbox && lightboxImg) {
-      lightboxImg.src = encodeURI(src);
-      lightbox.classList.add('active');
+  window.openCertLightbox = function(src) {
+    const modal = document.getElementById('certLightboxModal');
+    const img = document.getElementById('certLightboxImg');
+    if (modal && img) {
+      img.src = encodeURI(src);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
-  }
+  };
 
-  function closeLightbox() {
-    if (lightbox) lightbox.classList.remove('active');
-  }
+  window.closeCertLightbox = function() {
+    const modal = document.getElementById('certLightboxModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
 
-  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-  if (lightbox) {
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeCertLightbox();
+    }
+  });
+
+  function initCertTabScroll() {
+    const tabItems = document.querySelectorAll('.cert-tab-item');
+    const certSections = document.querySelectorAll('.urban-cert-item');
+
+    if (!tabItems.length || !certSections.length) return;
+
+    tabItems.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        const targetId = tab.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          e.preventDefault();
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      let currentId = '';
+      certSections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 250 && rect.bottom >= 150) {
+          currentId = sec.getAttribute('id');
+        }
+      });
+
+      if (currentId) {
+        tabItems.forEach(tab => {
+          if (tab.getAttribute('href') === `#${currentId}`) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+      }
     });
   }
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
+  initCertTabScroll();
 
   function populateTrack(trackElement, assets) {
     if (!trackElement) return;
@@ -429,11 +476,18 @@ function initMultiRowMarquee() {
 
     doubleAssets.forEach(item => {
       const card = document.createElement('div');
-      card.className = 'marquee-card';
+      card.className = item.isVideo ? 'marquee-card video-card' : 'marquee-card';
       const safeSrc = encodeURI(item.src);
-      card.innerHTML = `
-        <img src="${safeSrc}" alt="${item.title}" loading="lazy">
-      `;
+
+      if (item.isVideo) {
+        card.innerHTML = `
+          <video src="${safeSrc}" autoplay loop muted playsinline preload="metadata"></video>
+        `;
+      } else {
+        card.innerHTML = `
+          <img src="${safeSrc}" alt="${item.title}" loading="lazy">
+        `;
+      }
 
       card.addEventListener('click', () => {
         openLightbox(item.src);
