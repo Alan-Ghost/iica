@@ -902,6 +902,8 @@ html, body {
     padding: 16px 12px 14px 12px !important;
     min-height: 145px !important;
     border-radius: 12px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   .roster-card::after {
     top: 15px !important;
@@ -914,15 +916,28 @@ html, body {
     font-size: 0.98rem !important;
     margin-bottom: 10px !important;
     padding-bottom: 8px !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+    display: flex !important;
+    visibility: visible !important;
   }
   .roster-list {
+    display: flex !important;
+    flex-direction: column !important;
     gap: 5px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   .roster-list li {
     font-size: 0.76rem !important;
     padding: 5px 8px !important;
     border-radius: 6px !important;
     line-height: 1.25 !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: block !important;
+    visibility: visible !important;
   }
 }
 
