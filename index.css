@@ -1720,23 +1720,32 @@ html, body {
 /* Mobile responsive scaling safety */
 @media (max-width: 768px) {
   .scroll-zoom-document-area {
-    height: 420px !important;
+    height: 480px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     margin-top: 30px;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
   }
   .scroll-zoom-wrapper {
     position: relative !important;
     top: 0 !important;
-    width: 180px;
-    height: 255px;
-    margin: 0 auto;
+    width: 78vw !important;
+    max-width: 280px !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1.414 !important;
+    margin: 0 auto !important;
+  }
+  .scroll-zoom-license {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
   }
   .scroll-zoom-badge {
-    width: 50px;
-    top: -8px;
-    right: -8px;
+    width: 65px !important;
+    top: -10px !important;
+    right: -10px !important;
   }
 }
 
