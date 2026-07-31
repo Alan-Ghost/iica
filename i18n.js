@@ -261,39 +261,65 @@
   }
 
   function startRosterRotation() {
-    const slots = document.querySelectorAll('.cert-roster-grid .roster-card');
+    var slots = document.querySelectorAll('.cert-roster-grid .roster-card');
     if (!slots || slots.length === 0) return;
 
     renderRosterSlots();
 
     if (rosterInterval) clearInterval(rosterInterval);
 
+    var isMobile = window.innerWidth <= 768;
+
     rosterInterval = setInterval(function() {
-      const activeSlots = document.querySelectorAll('.cert-roster-grid .roster-card');
+      var activeSlots = document.querySelectorAll('.cert-roster-grid .roster-card');
       if (!activeSlots || activeSlots.length === 0) return;
 
-      activeSlots.forEach(function(slotEl) {
-        slotEl.classList.remove('card-triple-spin');
-        void slotEl.offsetWidth;
-        slotEl.classList.add('card-triple-spin');
-      });
+      isMobile = window.innerWidth <= 768;
 
-      setTimeout(function() {
-        currentSetIndex = (currentSetIndex + 1) % 3;
-        const nextIndices = getGroupIndices(currentSetIndex);
-
-        activeSlots.forEach(function(slotEl, i) {
-          if (nextIndices[i] !== undefined) {
-            renderCardContent(slotEl, nextIndices[i]);
-          }
+      if (isMobile) {
+        // Mobile: JS-driven opacity fade swap (no CSS animation dependency)
+        activeSlots.forEach(function(slotEl) {
+          slotEl.style.transition = 'opacity 0.3s ease';
+          slotEl.style.opacity = '0';
         });
-      }, 450);
 
-      setTimeout(function() {
+        setTimeout(function() {
+          currentSetIndex = (currentSetIndex + 1) % 3;
+          var nextIndices = getGroupIndices(currentSetIndex);
+          activeSlots.forEach(function(slotEl, i) {
+            if (nextIndices[i] !== undefined) {
+              renderCardContent(slotEl, nextIndices[i]);
+            }
+          });
+          activeSlots.forEach(function(slotEl) {
+            slotEl.style.opacity = '1';
+          });
+        }, 350);
+
+      } else {
+        // Desktop: 3-turn 1080° spin swap
         activeSlots.forEach(function(slotEl) {
           slotEl.classList.remove('card-triple-spin');
+          void slotEl.offsetWidth;
+          slotEl.classList.add('card-triple-spin');
         });
-      }, 950);
+
+        setTimeout(function() {
+          currentSetIndex = (currentSetIndex + 1) % 3;
+          var nextIndices = getGroupIndices(currentSetIndex);
+          activeSlots.forEach(function(slotEl, i) {
+            if (nextIndices[i] !== undefined) {
+              renderCardContent(slotEl, nextIndices[i]);
+            }
+          });
+        }, 450);
+
+        setTimeout(function() {
+          activeSlots.forEach(function(slotEl) {
+            slotEl.classList.remove('card-triple-spin');
+          });
+        }, 950);
+      }
 
     }, 3000);
   }
