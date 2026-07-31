@@ -2326,10 +2326,11 @@ html, body {
     font-size: clamp(1.4rem, 6vw, 2.2rem) !important;
   }
   .quote-highlight-text {
-    word-break: break-all !important;
+    word-break: keep-all !important;
     overflow-wrap: break-word !important;
     white-space: normal !important;
     max-width: 100% !important;
+    font-size: clamp(0.82rem, 3.8vw, 1.15rem) !important;
   }
   .message-body-text p {
     word-break: break-all !important;
@@ -2399,8 +2400,10 @@ html, body {
     text-align: center;
   }
   .quote-highlight-text {
-    font-size: 1.15rem;
-    line-height: 1.5;
+    font-size: clamp(0.85rem, 3.8vw, 1.15rem) !important;
+    line-height: 1.5 !important;
+    word-break: keep-all !important;
+    overflow-wrap: break-word !important;
   }
   .message-body-text {
     font-size: 0.88rem;
