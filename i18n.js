@@ -172,11 +172,13 @@
     { nameKey: 'roster_name_pyo_hee', defaultName: '표O희', items: [{ key: 'roster_item_career_1', defaultVal: '취업전략지도관 1급' }] }
   ];
 
-  // Active indices currently displayed in 6 slots [0..5]
-  let activeIndices = [0, 1, 2, 3, 4, 5];
-  let nextMemberIndex = 6;
-  let slotPointer = 0;
+  let currentSetIndex = 0;
   let rosterInterval = null;
+
+  function getGroupIndices(setIdx) {
+    const start = setIdx * 6;
+    return [start, start + 1, start + 2, start + 3, start + 4, start + 5];
+  }
 
   function renderCardContent(cardEl, memberIndex) {
     const member = ROSTER_MEMBERS[memberIndex];
@@ -200,8 +202,9 @@
   function renderRosterSlots() {
     const slots = document.querySelectorAll('.cert-roster-grid .roster-card');
     if (slots.length < 6) return;
+    const currentIndices = getGroupIndices(currentSetIndex);
     slots.forEach(function(slotEl, i) {
-      renderCardContent(slotEl, activeIndices[i]);
+      renderCardContent(slotEl, currentIndices[i]);
     });
   }
 
@@ -214,30 +217,31 @@
     if (rosterInterval) clearInterval(rosterInterval);
 
     rosterInterval = setInterval(function() {
-      const targetSlot = slots[slotPointer];
+      // 1) Trigger 3-turn (1080deg) spin & swell simultaneously on all 6 cards
+      slots.forEach(function(slotEl) {
+        slotEl.classList.remove('card-triple-spin');
+        void slotEl.offsetWidth; // force reflow
+        slotEl.classList.add('card-triple-spin');
+      });
 
-      // Trigger swell & 360° spin animation
-      targetSlot.classList.remove('card-spinning');
-      void targetSlot.offsetWidth; // reflow
-      targetSlot.classList.add('card-spinning');
-
-      // Mid-spin swap member content at 350ms (when rotated 90deg edge-on)
+      // 2) Mid-spin at 450ms: Swap content of ALL 6 cards to next group set simultaneously
       setTimeout(function() {
-        const newMemberIdx = nextMemberIndex;
-        activeIndices[slotPointer] = newMemberIdx;
-        renderCardContent(targetSlot, newMemberIdx);
+        currentSetIndex = (currentSetIndex + 1) % 3; // 3 sets of 6 (total 18)
+        const nextIndices = getGroupIndices(currentSetIndex);
 
-        // Advance indices
-        nextMemberIndex = (nextMemberIndex + 1) % ROSTER_MEMBERS.length;
-        slotPointer = (slotPointer + 1) % 6;
-      }, 350);
+        slots.forEach(function(slotEl, i) {
+          renderCardContent(slotEl, nextIndices[i]);
+        });
+      }, 450);
 
-      // Clean up animation class
+      // 3) Clean up spin class at 950ms
       setTimeout(function() {
-        targetSlot.classList.remove('card-spinning');
-      }, 750);
+        slots.forEach(function(slotEl) {
+          slotEl.classList.remove('card-triple-spin');
+        });
+      }, 950);
 
-    }, 2000);
+    }, 3000); // 3-second cycle
   }
 
   document.addEventListener('DOMContentLoaded', function() {
