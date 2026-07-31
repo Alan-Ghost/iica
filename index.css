@@ -608,11 +608,11 @@ html, body {
 
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 32px 40px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 32px 36px;
   align-items: center;
   justify-content: center;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
