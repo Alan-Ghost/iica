@@ -277,10 +277,10 @@
       isMobile = window.innerWidth <= 768;
 
       if (isMobile) {
-        // Mobile: JS-driven opacity fade swap (no CSS animation dependency)
-        activeSlots.forEach(function(slotEl) {
-          slotEl.style.transition = 'opacity 0.3s ease';
-          slotEl.style.opacity = '0';
+        // Mobile: scaleX flip + bounce (3D-free, WebKit-safe)
+        activeSlots.forEach(function(slotEl, i) {
+          slotEl.style.transition = 'transform 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53)';
+          slotEl.style.transform = 'scaleX(0) scaleY(0.8)';
         });
 
         setTimeout(function() {
@@ -290,11 +290,11 @@
             if (nextIndices[i] !== undefined) {
               renderCardContent(slotEl, nextIndices[i]);
             }
+            // Bounce back with overshoot
+            slotEl.style.transition = 'transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            slotEl.style.transform = 'scaleX(1) scaleY(1)';
           });
-          activeSlots.forEach(function(slotEl) {
-            slotEl.style.opacity = '1';
-          });
-        }, 350);
+        }, 380);
 
       } else {
         // Desktop: 3-turn 1080° spin swap
