@@ -62,21 +62,28 @@
       dropdown.appendChild(item);
     });
 
-    langSelector.appendChild(btn);
-    langSelector.appendChild(dropdown);
-
-    // Toggle dropdown
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
+    // Toggle dropdown (Mobile Touch & Click Friendly)
+    function toggleDropdown(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       const isOpen = dropdown.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen);
-    });
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
 
-    // Close on outside click
-    document.addEventListener('click', function() {
-      dropdown.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-    });
+    btn.addEventListener('click', toggleDropdown);
+
+    // Close on outside click or touch
+    function handleOutsideClick(e) {
+      if (!langSelector.contains(e.target)) {
+        dropdown.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('touchend', handleOutsideClick, { passive: true });
   }
 
   // ---- Switch Language ----

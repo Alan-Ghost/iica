@@ -39,7 +39,7 @@ html, body {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  z-index: 100;
+  z-index: 99999;
   display: flex;
   align-items: center;
   transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -47,6 +47,7 @@ html, body {
               backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   background-color: transparent;
   color: #fff;
+  overflow: visible !important;
 }
 
 /* Header Scrolled - Sophisticated glassmorphism matching navy theme */
@@ -124,6 +125,8 @@ html, body {
 /* Zero border-radius standard button inspired by Lamborghini */
 .lang-selector {
   position: relative;
+  z-index: 10000;
+  overflow: visible !important;
 }
 
 .lang-btn {
@@ -137,6 +140,8 @@ html, body {
   font-weight: 600;
   font-size: 0.85rem;
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .lang-btn:hover {
@@ -156,10 +161,10 @@ html, body {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: rgba(10, 16, 30, 0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 16, 30, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 192, 0, 0.3);
   border-radius: 8px;
   min-width: 160px;
   padding: 6px 0;
@@ -167,14 +172,16 @@ html, body {
   visibility: hidden;
   transform: translateY(-8px);
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-  z-index: 10000;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  z-index: 1000000;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 192, 0, 0.15);
+  pointer-events: none;
 }
 
 .lang-dropdown.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .lang-dropdown-item {
