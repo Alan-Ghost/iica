@@ -675,6 +675,7 @@ html, body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  perspective: 1000px;
 }
 
 .roster-card {
@@ -683,15 +684,41 @@ html, body {
   border-radius: 16px;
   padding: 24px 22px 20px 22px;
   backdrop-filter: blur(16px);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 195px;
+  min-height: 200px;
   box-sizing: border-box;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* 2-Second Swap Spin & Swell Animation */
+.roster-card.card-spinning {
+  animation: cardSwellSpin 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardSwellSpin {
+  0% {
+    transform: scale(1) rotateY(0deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  35% {
+    transform: scale(1.12) rotateY(90deg);
+    box-shadow: 0 25px 50px rgba(255, 192, 0, 0.3), 0 0 30px rgba(255, 192, 0, 0.4);
+    border-color: var(--accent-gold);
+  }
+  70% {
+    transform: scale(1.08) rotateY(270deg);
+  }
+  100% {
+    transform: scale(1) rotateY(360deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .roster-card::before {
