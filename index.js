@@ -136,6 +136,7 @@ navLinks.forEach(link => {
 
 // 7. iParking-inspired High-Contrast 3D Perspective Curvature & Edge Height Stretching
 function updateCardPerspective() {
+  if (window.innerWidth <= 768) return; // Skip heavy 3D transforms on mobile for smooth 60fps scrolling
   const cards = document.querySelectorAll('.gallery-card');
   const windowWidth = window.innerWidth;
   const centerX = windowWidth / 2;

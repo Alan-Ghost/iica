@@ -1,8 +1,3 @@
-// =============================================================================
-// IICA Website - Internationalization (i18n) Language Switcher
-// Supports: Korean (ko), English (en), Chinese (zh), Japanese (ja), Russian (ru)
-// =============================================================================
-
 (function() {
   'use strict';
 
@@ -24,11 +19,19 @@
 
   let currentLang = localStorage.getItem('iica_lang') || 'ko';
 
-  // ---- DOM Ready ----
-  document.addEventListener('DOMContentLoaded', function() {
+  // ---- Safe Initialization ----
+  function initI18n() {
     buildLangDropdown();
     applyLanguage(currentLang);
-  });
+    startRosterRotation();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initI18n);
+  } else {
+    // Run immediately if already interactive or complete
+    setTimeout(initI18n, 10);
+  }
 
   // ---- Build Language Dropdown UI ----
   function buildLangDropdown() {
@@ -56,34 +59,43 @@
       item.setAttribute('data-lang', code);
       item.innerHTML = '<span class="lang-code">' + LANG_SHORT[code] + '</span><span class="lang-name">' + LANG_LABELS[code] + '</span>';
       item.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
         switchLanguage(code);
       });
       dropdown.appendChild(item);
     });
 
-    // Toggle dropdown (Mobile Touch & Click Friendly)
+    langSelector.appendChild(btn);
+    langSelector.appendChild(dropdown);
+
+    // Toggle dropdown (Mobile Touch & Click Safe)
     function toggleDropdown(e) {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
-      const isOpen = dropdown.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const isOpen = dropdown.classList.contains('open');
+      if (isOpen) {
+        dropdown.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        dropdown.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     }
 
     btn.addEventListener('click', toggleDropdown);
 
-    // Close on outside click or touch
+    // Close on outside click
     function handleOutsideClick(e) {
-      if (!langSelector.contains(e.target)) {
+      if (langSelector && !langSelector.contains(e.target)) {
         dropdown.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
       }
     }
 
     document.addEventListener('click', handleOutsideClick);
-    document.addEventListener('touchend', handleOutsideClick, { passive: true });
   }
 
   // ---- Switch Language ----
@@ -118,7 +130,6 @@
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       const key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) {
-        // Check if element has child elements that should be preserved
         if (el.getAttribute('data-i18n-html') === 'true') {
           el.innerHTML = t[key];
         } else {
@@ -127,7 +138,6 @@
       }
     });
 
-    // Handle placeholder attributes
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
       const key = el.getAttribute('data-i18n-placeholder');
       if (t[key] !== undefined) {
@@ -135,7 +145,6 @@
       }
     });
 
-    // Handle title attributes
     document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
       const key = el.getAttribute('data-i18n-title');
       if (t[key] !== undefined) {
@@ -143,12 +152,10 @@
       }
     });
 
-    // Update page title
     if (t['page_title']) {
       document.title = t['page_title'];
     }
 
-    // Refresh dynamic 3x2 Roster cards for new language
     if (window.renderRosterSlots) {
       window.renderRosterSlots();
     }
@@ -156,7 +163,6 @@
 
   // =============================================================================
   // 3x2 Dynamic Roster Card Spin Swap Engine
-  // Displays 6 cards at a time, every 2 seconds one card swells, spins 360°, and swaps.
   // =============================================================================
   const ROSTER_MEMBERS = [
     { nameKey: 'roster_name_kang_bin', defaultName: '강O빈', items: [{ key: 'roster_item_kpop_1', defaultVal: '방송댄스 (K-pop) 1급' }] },
@@ -189,7 +195,7 @@
 
   function renderCardContent(cardEl, memberIndex) {
     const member = ROSTER_MEMBERS[memberIndex];
-    if (!member) return;
+    if (!member || !cardEl) return;
     const t = (window.TRANSLATIONS && window.TRANSLATIONS[currentLang]) || {};
 
     const nameText = t[member.nameKey] || member.defaultName;
@@ -208,54 +214,55 @@
 
   function renderRosterSlots() {
     const slots = document.querySelectorAll('.cert-roster-grid .roster-card');
-    if (slots.length < 6) return;
+    if (!slots || slots.length === 0) return;
     const currentIndices = getGroupIndices(currentSetIndex);
     slots.forEach(function(slotEl, i) {
-      renderCardContent(slotEl, currentIndices[i]);
+      if (currentIndices[i] !== undefined) {
+        renderCardContent(slotEl, currentIndices[i]);
+      }
     });
   }
 
   function startRosterRotation() {
     const slots = document.querySelectorAll('.cert-roster-grid .roster-card');
-    if (slots.length < 6) return;
+    if (!slots || slots.length === 0) return;
 
     renderRosterSlots();
 
     if (rosterInterval) clearInterval(rosterInterval);
 
     rosterInterval = setInterval(function() {
-      // 1) Trigger 3-turn (1080deg) spin & swell simultaneously on all 6 cards
-      slots.forEach(function(slotEl) {
+      const activeSlots = document.querySelectorAll('.cert-roster-grid .roster-card');
+      if (!activeSlots || activeSlots.length === 0) return;
+
+      activeSlots.forEach(function(slotEl) {
         slotEl.classList.remove('card-triple-spin');
-        void slotEl.offsetWidth; // force reflow
+        void slotEl.offsetWidth;
         slotEl.classList.add('card-triple-spin');
       });
 
-      // 2) Mid-spin at 450ms: Swap content of ALL 6 cards to next group set simultaneously
       setTimeout(function() {
-        currentSetIndex = (currentSetIndex + 1) % 3; // 3 sets of 6 (total 18)
+        currentSetIndex = (currentSetIndex + 1) % 3;
         const nextIndices = getGroupIndices(currentSetIndex);
 
-        slots.forEach(function(slotEl, i) {
-          renderCardContent(slotEl, nextIndices[i]);
+        activeSlots.forEach(function(slotEl, i) {
+          if (nextIndices[i] !== undefined) {
+            renderCardContent(slotEl, nextIndices[i]);
+          }
         });
       }, 450);
 
-      // 3) Clean up spin class at 950ms
       setTimeout(function() {
-        slots.forEach(function(slotEl) {
+        activeSlots.forEach(function(slotEl) {
           slotEl.classList.remove('card-triple-spin');
         });
       }, 950);
 
-    }, 3000); // 3-second cycle
+    }, 3000);
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    startRosterRotation();
-  });
-
   window.renderRosterSlots = renderRosterSlots;
+  window.startRosterRotation = startRosterRotation;
 
   // Expose for external use
   window.switchLanguage = switchLanguage;

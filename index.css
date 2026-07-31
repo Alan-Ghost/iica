@@ -1496,8 +1496,10 @@ html, body {
   transform-style: preserve-3d;
 }
 
-.gallery-ticker-wrapper:hover {
-  animation-play-state: paused; /* Pause scrolling on mouse hover for interactive reading */
+@media (hover: hover) {
+  .gallery-ticker-wrapper:hover {
+    animation-play-state: paused; /* Pause scrolling only on real mouse hover */
+  }
 }
 
 .gallery-track {
