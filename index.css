@@ -1741,7 +1741,7 @@ html, body {
 .career-ticker-track.vertical-scroll {
   display: flex;
   flex-direction: column;
-  animation: scrollVerticalUp 27s infinite linear;
+  animation: scrollVerticalUp 13.5s infinite linear;
 }
 
 .career-ticker-container:hover .vertical-scroll {
