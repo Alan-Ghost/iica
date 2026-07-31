@@ -888,13 +888,48 @@ html, body {
     margin: 0 auto;
   }
   .cert-roster-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cert-roster-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .roster-card {
+    padding: 16px 12px 14px 12px !important;
+    min-height: 145px !important;
+    border-radius: 12px !important;
+  }
+  .roster-card::after {
+    top: 15px !important;
+    right: 10px !important;
+    font-size: 0.52rem !important;
+    padding: 1px 5px !important;
+    letter-spacing: 0.5px !important;
+  }
+  .roster-name {
+    font-size: 0.98rem !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 8px !important;
+  }
+  .roster-list {
+    gap: 5px !important;
+  }
+  .roster-list li {
+    font-size: 0.76rem !important;
+    padding: 5px 8px !important;
+    border-radius: 6px !important;
+    line-height: 1.25 !important;
   }
 }
 
 @media (max-width: 480px) {
   .cert-roster-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
 }
 
