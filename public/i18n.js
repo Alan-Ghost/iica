@@ -268,58 +268,32 @@
 
     if (rosterInterval) clearInterval(rosterInterval);
 
-    var isMobile = window.innerWidth <= 768;
-
     rosterInterval = setInterval(function() {
       var activeSlots = document.querySelectorAll('.cert-roster-grid .roster-card');
       if (!activeSlots || activeSlots.length === 0) return;
 
-      isMobile = window.innerWidth <= 768;
+      // 3D 1080° Spin Swap (Mobile & Desktop Unified)
+      activeSlots.forEach(function(slotEl) {
+        slotEl.classList.remove('card-triple-spin');
+        void slotEl.offsetWidth;
+        slotEl.classList.add('card-triple-spin');
+      });
 
-      if (isMobile) {
-        // Mobile: scaleX flip + bounce (3D-free, WebKit-safe)
+      setTimeout(function() {
+        currentSetIndex = (currentSetIndex + 1) % 3;
+        var nextIndices = getGroupIndices(currentSetIndex);
         activeSlots.forEach(function(slotEl, i) {
-          slotEl.style.transition = 'transform 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53)';
-          slotEl.style.transform = 'scaleX(0) scaleY(0.8)';
+          if (nextIndices[i] !== undefined) {
+            renderCardContent(slotEl, nextIndices[i]);
+          }
         });
+      }, 450);
 
-        setTimeout(function() {
-          currentSetIndex = (currentSetIndex + 1) % 3;
-          var nextIndices = getGroupIndices(currentSetIndex);
-          activeSlots.forEach(function(slotEl, i) {
-            if (nextIndices[i] !== undefined) {
-              renderCardContent(slotEl, nextIndices[i]);
-            }
-            // Bounce back with overshoot
-            slotEl.style.transition = 'transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            slotEl.style.transform = 'scaleX(1) scaleY(1)';
-          });
-        }, 380);
-
-      } else {
-        // Desktop: 3-turn 1080° spin swap
+      setTimeout(function() {
         activeSlots.forEach(function(slotEl) {
           slotEl.classList.remove('card-triple-spin');
-          void slotEl.offsetWidth;
-          slotEl.classList.add('card-triple-spin');
         });
-
-        setTimeout(function() {
-          currentSetIndex = (currentSetIndex + 1) % 3;
-          var nextIndices = getGroupIndices(currentSetIndex);
-          activeSlots.forEach(function(slotEl, i) {
-            if (nextIndices[i] !== undefined) {
-              renderCardContent(slotEl, nextIndices[i]);
-            }
-          });
-        }, 450);
-
-        setTimeout(function() {
-          activeSlots.forEach(function(slotEl) {
-            slotEl.classList.remove('card-triple-spin');
-          });
-        }, 950);
-      }
+      }, 950);
 
     }, 3000);
   }

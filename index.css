@@ -720,23 +720,28 @@ html, body {
 /* 3-Turn 1080° Dynamic Spin & Swell Swap Animation */
 .roster-card.card-triple-spin {
   animation: cardTripleSpin 0.95s cubic-bezier(0.34, 1.35, 0.64, 1) forwards !important;
+  -webkit-animation: cardTripleSpin 0.95s cubic-bezier(0.34, 1.35, 0.64, 1) forwards !important;
 }
 
 @keyframes cardTripleSpin {
   0% {
     transform: scale(1) rotateY(0deg);
+    -webkit-transform: scale(1) rotateY(0deg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
   40% {
-    transform: scale(1.18) rotateY(450deg);
+    transform: scale(1.15) rotateY(450deg);
+    -webkit-transform: scale(1.15) rotateY(450deg);
     box-shadow: 0 30px 60px rgba(255, 192, 0, 0.35), 0 0 40px rgba(255, 192, 0, 0.5);
     border-color: var(--accent-gold);
   }
   70% {
-    transform: scale(1.1) rotateY(810deg);
+    transform: scale(1.08) rotateY(810deg);
+    -webkit-transform: scale(1.08) rotateY(810deg);
   }
   100% {
     transform: scale(1) rotateY(1080deg);
+    -webkit-transform: scale(1) rotateY(1080deg);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 }
@@ -897,7 +902,8 @@ html, body {
   .cert-roster-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
-    perspective: none !important;
+    perspective: 800px !important;
+    -webkit-perspective: 800px !important;
   }
   .roster-card {
     padding: 16px 12px 14px 12px !important;
@@ -905,25 +911,10 @@ html, body {
     border-radius: 12px !important;
     opacity: 1 !important;
     visibility: visible !important;
-    /* Kill 3D rendering that hides children on mobile WebKit */
-    transform-style: flat !important;
+    transform-style: preserve-3d !important;
+    -webkit-transform-style: preserve-3d !important;
     backface-visibility: visible !important;
     -webkit-backface-visibility: visible !important;
-    transform: none !important;
-    animation: none !important;
-  }
-  .roster-card.card-triple-spin {
-    animation: cardMobileFade 0.6s ease forwards !important;
-    transform: none !important;
-    backface-visibility: visible !important;
-    -webkit-backface-visibility: visible !important;
-    transform-style: flat !important;
-  }
-  @keyframes cardMobileFade {
-    0% { opacity: 1; }
-    40% { opacity: 0; }
-    60% { opacity: 0; }
-    100% { opacity: 1; }
   }
   .roster-card::after {
     top: 15px !important;
@@ -931,6 +922,8 @@ html, body {
     font-size: 0.52rem !important;
     padding: 1px 5px !important;
     letter-spacing: 0.5px !important;
+    transform: translateZ(2px) !important;
+    -webkit-transform: translateZ(2px) !important;
   }
   .roster-name {
     font-size: 0.98rem !important;
@@ -940,6 +933,8 @@ html, body {
     opacity: 1 !important;
     display: flex !important;
     visibility: visible !important;
+    transform: translateZ(2px) !important;
+    -webkit-transform: translateZ(2px) !important;
   }
   .roster-list {
     display: flex !important;
@@ -947,6 +942,8 @@ html, body {
     gap: 5px !important;
     opacity: 1 !important;
     visibility: visible !important;
+    transform: translateZ(2px) !important;
+    -webkit-transform: translateZ(2px) !important;
   }
   .roster-list li {
     font-size: 0.76rem !important;
