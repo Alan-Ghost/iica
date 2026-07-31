@@ -122,6 +122,10 @@ html, body {
 }
 
 /* Zero border-radius standard button inspired by Lamborghini */
+.lang-selector {
+  position: relative;
+}
+
 .lang-btn {
   background: none;
   border: 1px solid currentColor;
@@ -145,6 +149,70 @@ html, body {
   background-color: var(--accent-gold);
   border-color: var(--accent-gold);
   color: var(--primary-navy);
+}
+
+/* Language Dropdown Menu */
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(10, 16, 30, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  min-width: 160px;
+  padding: 6px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 10000;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lang-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 18px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  text-align: left;
+}
+
+.lang-dropdown-item:hover {
+  background: rgba(255, 192, 0, 0.1);
+  color: var(--accent-gold);
+}
+
+.lang-dropdown-item.active {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.lang-dropdown-item .lang-code {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  min-width: 28px;
+}
+
+.lang-dropdown-item .lang-name {
+  font-weight: 400;
 }
 
 /* Hero Section Container */
@@ -291,6 +359,39 @@ html, body {
   padding-left: 0;
   margin: 44px auto 0 auto;
   text-align: center;
+}
+
+/* Hero IICA Circular Logo Emblem */
+.hero-logo-emblem {
+  margin: 48px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: heroLogoFadeIn 2s ease-out 0.5s both;
+}
+
+.hero-logo-img {
+  width: clamp(120px, 18vw, 200px);
+  height: clamp(120px, 18vw, 200px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 30px rgba(255, 192, 0, 0.25)) drop-shadow(0 0 60px rgba(255, 192, 0, 0.1));
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.6s ease;
+}
+
+.hero-logo-img:hover {
+  transform: scale(1.08) rotate(3deg);
+  filter: drop-shadow(0 0 40px rgba(255, 192, 0, 0.4)) drop-shadow(0 0 80px rgba(255, 192, 0, 0.15));
+}
+
+@keyframes heroLogoFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Content Section (Monolithic Dark Canvas) */
