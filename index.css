@@ -1572,6 +1572,8 @@ html, body {
 .president-career-col {
   text-align: left;
   padding-top: 10px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .career-section-label {
@@ -1684,6 +1686,9 @@ html, body {
   padding: 10px 0 0 0;
   border-radius: 0;
   text-align: left;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .message-quote-box {
@@ -1778,6 +1783,10 @@ html, body {
   padding-top: 0;
   border-top: none;
   text-align: left;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .message-quote-box {
@@ -1803,6 +1812,7 @@ html, body {
   line-height: 1.55;
   letter-spacing: -0.2px;
   word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .message-body-text {
@@ -1819,6 +1829,7 @@ html, body {
 .message-body-text p {
   margin: 0;
   word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .message-footer-signature {
@@ -2010,6 +2021,10 @@ html, body {
   }
   .president-career-col {
     text-align: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
   }
   .president-name-title {
     display: flex;
@@ -2055,10 +2070,22 @@ html, body {
     font-size: clamp(1.4rem, 6vw, 2.2rem) !important;
   }
   .quote-highlight-text {
-    word-break: break-word;
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    max-width: 100% !important;
   }
   .message-body-text p {
-    word-break: break-word;
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    max-width: 100% !important;
+  }
+  .president-message-wrap {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    padding: 10px 0 0 0 !important;
   }
   .container {
     width: 92%;
