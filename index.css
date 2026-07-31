@@ -897,6 +897,7 @@ html, body {
   .cert-roster-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
+    perspective: none !important;
   }
   .roster-card {
     padding: 16px 12px 14px 12px !important;
@@ -904,6 +905,25 @@ html, body {
     border-radius: 12px !important;
     opacity: 1 !important;
     visibility: visible !important;
+    /* Kill 3D rendering that hides children on mobile WebKit */
+    transform-style: flat !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .roster-card.card-triple-spin {
+    animation: cardMobileFade 0.6s ease forwards !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    transform-style: flat !important;
+  }
+  @keyframes cardMobileFade {
+    0% { opacity: 1; }
+    40% { opacity: 0; }
+    60% { opacity: 0; }
+    100% { opacity: 1; }
   }
   .roster-card::after {
     top: 15px !important;
