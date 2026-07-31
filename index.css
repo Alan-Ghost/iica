@@ -704,8 +704,8 @@ html, body {
 .roster-card::after {
   content: 'CERTIFIED';
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 25px;
+  right: 22px;
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 1px;
