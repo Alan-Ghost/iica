@@ -40,13 +40,14 @@
 
     langSelector.innerHTML = '';
 
-    // Main button
+    // Main button - iOS requires cursor:pointer on clickable non-anchor elements
     const btn = document.createElement('button');
     btn.className = 'lang-btn';
     btn.id = 'langToggleBtn';
     btn.textContent = LANG_SHORT[currentLang] || 'KR';
     btn.setAttribute('aria-haspopup', 'true');
     btn.setAttribute('aria-expanded', 'false');
+    btn.style.cursor = 'pointer'; // iOS Safari clickability fix
 
     // Dropdown menu
     const dropdown = document.createElement('div');
@@ -57,45 +58,81 @@
       const item = document.createElement('button');
       item.className = 'lang-dropdown-item' + (code === currentLang ? ' active' : '');
       item.setAttribute('data-lang', code);
+      item.style.cursor = 'pointer';
       item.innerHTML = '<span class="lang-code">' + LANG_SHORT[code] + '</span><span class="lang-name">' + LANG_LABELS[code] + '</span>';
-      item.addEventListener('click', function(e) {
+
+      function handleItemSelect(e) {
         e.preventDefault();
         e.stopPropagation();
         switchLanguage(code);
-      });
+      }
+      item.addEventListener('click', handleItemSelect);
+      item.addEventListener('touchend', handleItemSelect);
       dropdown.appendChild(item);
     });
 
     langSelector.appendChild(btn);
     langSelector.appendChild(dropdown);
 
-    // Toggle dropdown (Mobile Touch & Click Safe)
-    function toggleDropdown(e) {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      const isOpen = dropdown.classList.contains('open');
-      if (isOpen) {
-        dropdown.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
+    // Toggle dropdown
+    var dropdownOpen = false;
+
+    function openDropdown() {
+      dropdownOpen = true;
+      dropdown.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDropdown() {
+      dropdownOpen = false;
+      dropdown.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Touch handling for mobile - use touchend to avoid conflicts
+    var touchMoved = false;
+    btn.addEventListener('touchstart', function(e) {
+      touchMoved = false;
+    }, { passive: true });
+
+    btn.addEventListener('touchmove', function(e) {
+      touchMoved = true;
+    }, { passive: true });
+
+    btn.addEventListener('touchend', function(e) {
+      if (touchMoved) return; // was a scroll, not a tap
+      e.preventDefault();
+      e.stopPropagation();
+      if (dropdownOpen) {
+        closeDropdown();
       } else {
-        dropdown.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
+        openDropdown();
       }
-    }
+    });
 
-    btn.addEventListener('click', toggleDropdown);
+    // Click for desktop
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (dropdownOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    });
 
-    // Close on outside click
-    function handleOutsideClick(e) {
+    // Close on outside touch/click
+    document.addEventListener('touchstart', function(e) {
       if (langSelector && !langSelector.contains(e.target)) {
-        dropdown.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
+        closeDropdown();
       }
-    }
+    }, { passive: true });
 
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('click', function(e) {
+      if (langSelector && !langSelector.contains(e.target)) {
+        closeDropdown();
+      }
+    });
   }
 
   // ---- Switch Language ----
