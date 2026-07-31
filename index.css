@@ -1838,6 +1838,12 @@ html, body {
   padding-top: 14px;
 }
 
+.message-body-text .message-thank {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 14px;
+}
+
 .signature-thank {
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.5);
