@@ -231,7 +231,8 @@ html, body {
   z-index: 4;
   display: flex;
   align-items: center;
-  padding-left: 10%;
+  justify-content: center;
+  padding: 0 24px;
 }
 
 .hero-text-wrap {
@@ -239,6 +240,10 @@ html, body {
   color: var(--text-white);
   z-index: 5;
   will-change: transform, opacity;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Loud uppercase title architecture inspired by LamboType rules */
@@ -250,17 +255,20 @@ html, body {
   margin-bottom: 24px;
   letter-spacing: -3.5px; /* Heavy negative tracking for stamped steel effect */
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* Thin technical subtitle (Muted Navy Gray) */
 .hero-subtitle {
   font-family: var(--font-title);
   font-size: clamp(1.05rem, 1.8vw, 1.5rem); /* Enlarged for graphic layout balance */
-  line-height: 1.3;
+  line-height: 1.35;
   color: var(--text-gray);
   max-width: 900px;
   letter-spacing: 2px; /* Generous technical tracking for contrast */
   text-transform: uppercase; /* Aligned with brand authority */
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* Lamborghini Gold Highlight for First Letters of I-I-C-A */
@@ -279,9 +287,10 @@ html, body {
   opacity: 0.95;
   letter-spacing: 0.5px;
   max-width: 800px;
-  border-left: 3px solid var(--accent-gold); /* Thicker gold bar for visual weight */
-  padding-left: 28px; /* Generous breathing room inside the quote */
-  margin-top: 48px; /* Strong vertical grid layout split */
+  border-left: none;
+  padding-left: 0;
+  margin: 44px auto 0 auto;
+  text-align: center;
 }
 
 /* Content Section (Monolithic Dark Canvas) */
@@ -483,6 +492,81 @@ html, body {
   color: var(--text-white);
   letter-spacing: -0.5px;
   margin: 0;
+}
+
+/* Partners & Affiliation Section */
+.partners-section {
+  padding: 50px 0 10px 0 !important;
+  background: transparent;
+  border-top: none;
+}
+
+.partners-header {
+  margin-bottom: 20px;
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 32px 40px;
+  align-items: center;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.partner-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 8px;
+  height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.partner-card img {
+  max-width: 190px;
+  max-height: 90px;
+  object-fit: contain;
+  filter: brightness(1.1) contrast(1.05);
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.35s ease;
+}
+
+.partner-card:hover img {
+  transform: scale(1.12);
+  filter: brightness(1.25) drop-shadow(0 0 15px rgba(255, 192, 0, 0.35));
+}
+
+@media (max-width: 992px) {
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3줄 구도 (3개x3줄) */
+    gap: 24px 30px;
+  }
+  .partner-card {
+    height: 85px;
+  }
+  .partner-card img {
+    max-height: 70px;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 576px) {
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 20px;
+  }
+  .partner-card {
+    height: 75px;
+  }
+  .partner-card img {
+    max-height: 60px;
+    max-width: 130px;
+  }
 }
 
 /* Roster Cards Grid (3 Columns on Desktop) */
@@ -1324,63 +1408,66 @@ html, body {
 }
 
 .president-welcome-container {
-  margin: 140px auto 0 auto !important; /* Expanded from 60px to 140px to completely prevent the scaled 1.5x silhouette from encroaching on the title text */
+  margin: 100px auto 0 auto !important;
   padding-top: 0 !important;
   border-top: none !important;
 }
 
 .president-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr; /* Optimized balance for larger silhouette + 2-col timeline layout */
-  gap: 50px;
-  align-items: center;
+  grid-template-columns: 420px 1fr;
+  gap: 48px;
+  align-items: start;
 }
 
-/* Left Column: Huge Clean Silhouette Portrait (Reference CEO Style) */
+/* Left Column: Name/Title Header + Portrait Frame */
 .president-img-col {
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   position: relative;
-  height: 620px; /* Restored to original golden height */
-  align-items: flex-end; /* Ground the feet neatly at the bottom */
-  overflow: visible; /* Allows scaled-up portrait to overflow nicely */
+}
+
+.president-left-header {
+  margin-bottom: 22px;
+  text-align: left;
+  width: 100%;
 }
 
 .president-img-frame {
   position: relative;
   width: 100%;
-  height: 100%;
-  border: none; 
-  background: none; 
-  box-shadow: none; 
-  border-radius: 0;
-  overflow: visible;
+  max-width: 420px;
+  height: 490px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12); /* Clean subtle border, NO yellow border */
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  background: #0c1527;
 }
 
 .president-photo {
   position: absolute;
-  bottom: 0;
-  width: auto; 
-  height: 100%; 
-  max-height: 100%;
-  object-fit: contain; 
-  /* Scaled up 1.5x with bottom-center anchor so it scales upward from the ground */
-  transform: scale(1.5);
-  transform-origin: bottom center;
-  filter: contrast(1.08) brightness(1.03); 
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(1);
+  filter: contrast(1.04) brightness(1.02);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 3;
 }
 
 .president-img-frame:hover .president-photo {
-  transform: scale(1.53) translateY(-4px); /* Very subtle premium hover breath at 1.5x scale */
+  transform: scale(1.05);
 }
 
-/* Clean background - disabled beam glows */
 .president-photo-glow {
   display: none;
 }
@@ -1484,7 +1571,7 @@ html, body {
 /* Right Column: Career & Timeline Honors */
 .president-career-col {
   text-align: left;
-  padding-top: 10px; /* Moved up to match the height of the large silhouette */
+  padding-top: 10px;
 }
 
 .career-section-label {
@@ -1533,13 +1620,13 @@ html, body {
   background-color: var(--accent-gold);
 }
 
-/* Premium Biography Vertical Text Ticker (Scrolling from Top to Bottom - 5 Lines) */
+/* Premium Biography Vertical Text Ticker */
 .career-ticker-container {
   position: relative;
   width: 100%;
-  height: 150px; /* Exact height for 5 lines (30px per line * 5 lines) */
-  background: rgba(255, 192, 0, 0.03); /* Soft gold transparency backdrop */
-  border-left: 3px solid var(--accent-gold); /* Solid gold indicator bar on the left */
+  height: 150px;
+  background: rgba(255, 192, 0, 0.03);
+  border-left: 3px solid var(--accent-gold);
   overflow: hidden;
   margin-bottom: 35px;
   display: flex;
@@ -1551,11 +1638,9 @@ html, body {
 .career-ticker-track.vertical-scroll {
   display: flex;
   flex-direction: column;
-  /* Animates smoothly from bottom to top - speed scaled up by 1.2x (32s / 1.2 = ~27s) */
   animation: scrollVerticalUp 27s infinite linear;
 }
 
-/* Premium micro-interaction: pauses scrolling when the user hovers to read closely */
 .career-ticker-container:hover .vertical-scroll {
   animation-play-state: paused;
 }
@@ -1580,11 +1665,88 @@ html, body {
   font-weight: 800;
   font-size: 0.9rem;
   letter-spacing: 1.5px;
-  border-bottom: 1px solid rgba(255, 192, 0, 0.2); /* Clean editorial underline accent */
+  border-bottom: 1px solid rgba(255, 192, 0, 0.2);
   padding-bottom: 2px;
   margin-bottom: 6px;
   display: inline-block;
   width: fit-content;
+}
+
+.ticker-item-ver:hover {
+  color: var(--accent-gold);
+}
+
+/* Integrated Welcome Message Box */
+.president-message-wrap {
+  position: relative;
+  background: transparent;
+  border-left: none;
+  padding: 10px 0 0 0;
+  border-radius: 0;
+  text-align: left;
+}
+
+.message-quote-box {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.quote-mark {
+  font-family: 'Georgia', serif;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--accent-gold);
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  opacity: 0.35;
+}
+
+.quote-highlight-text {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  line-height: 1.5;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.message-body-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.message-body-text p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  word-break: keep-all;
+}
+
+.message-footer-signature {
+  text-align: right;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+}
+
+.signature-thank {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 2px 0;
+}
+
+.signature-name {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.signature-name strong {
+  color: var(--text-white);
+  font-size: 1.08rem;
 }
 
 .ticker-item-ver:hover {
@@ -1612,9 +1774,9 @@ html, body {
 
 /* Bottom Welcome Message editorial style */
 .president-message-wrap {
-  margin-top: 30px;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 15px;
+  padding-top: 0;
+  border-top: none;
   text-align: left;
 }
 
@@ -1918,17 +2080,25 @@ html, body {
     margin-top: 75px !important;
     padding-top: 0 !important;
   }
+  .president-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
   .president-img-col {
-    height: 370px !important;
-    align-items: flex-end;
+    width: 100% !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .president-left-header {
+    text-align: center !important;
   }
   .president-img-frame {
     width: 100% !important;
-    height: 100% !important;
+    max-width: 380px !important;
+    height: 420px !important;
   }
   .president-photo {
-    transform: scale(1.18) !important; /* Elegant 1.18x zoom scaled for narrow mobile screens */
-    transform-origin: bottom center !important;
+    transform: scale(1) !important;
   }
   .career-dual-box {
     grid-template-columns: 1fr !important; /* Stacked vertically on mobile screens */
@@ -2057,11 +2227,11 @@ html, body {
 /* ==========================================================================
    Footer Section Style
    ========================================================================== */
-.footer {
+.site-footer, .footer {
   background: #060911;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 45px 0 50px;
-  margin-top: 60px;
+  border-top: none;
+  padding: 40px 0 45px;
+  margin-top: 0;
 }
 
 .footer-container {
