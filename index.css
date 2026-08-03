@@ -1488,6 +1488,9 @@ html, body {
   margin: 0 auto;
   line-height: 1.65;
   letter-spacing: 0.2px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-align: center;
 }
 
 #about {
