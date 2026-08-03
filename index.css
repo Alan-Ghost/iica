@@ -1843,26 +1843,29 @@ html, body {
 /* Mobile responsive scaling safety */
 @media (max-width: 768px) {
   .scroll-zoom-document-area {
-    height: 480px !important;
+    height: auto !important;
+    min-height: 420px;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     margin-top: 30px;
-    padding: 0 16px !important;
+    padding: 20px 16px !important;
     box-sizing: border-box !important;
+    overflow: visible !important;
   }
   .scroll-zoom-wrapper {
     position: relative !important;
     top: 0 !important;
-    width: 78vw !important;
-    max-width: 280px !important;
+    width: 80vw !important;
+    max-width: 320px !important;
     height: auto !important;
     aspect-ratio: 1 / 1.414 !important;
     margin: 0 auto !important;
+    overflow: visible !important;
   }
   .scroll-zoom-license {
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     object-fit: contain !important;
   }
   .scroll-zoom-badge {
