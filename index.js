@@ -505,16 +505,16 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
   initMultiRowMarquee();
 }
 
-// EMAILJS CONFIGURATION (발급받은 키를 아래에 입력해주세요)
+// EMAILJS CONFIGURATION (발급받은 키를 적용함)
 const EMAILJS_CONFIG = {
-  publicKey: 'YOUR_PUBLIC_KEY',
-  serviceId: 'YOUR_SERVICE_ID',
-  templateId: 'YOUR_TEMPLATE_ID'
+  publicKey: 'knEr8JIGI013AzdOo',
+  serviceId: 'service_1b5h0ok',
+  templateId: 'template_rfsag2n'
 };
 
 // Initialize EmailJS
 (function() {
-  if (typeof emailjs !== 'undefined' && EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
+  if (typeof emailjs !== 'undefined') {
     emailjs.init(EMAILJS_CONFIG.publicKey);
   }
 })();
