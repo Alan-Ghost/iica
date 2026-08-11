@@ -563,6 +563,46 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// Premium Toast Notification System
+function showToast(title, message, isError = false) {
+  let container = document.querySelector('.toast-notification-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-notification-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast-card ${isError ? 'error' : 'success'}`;
+  
+  const iconSvg = isError ? 
+    `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>` :
+    `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+
+  toast.innerHTML = `
+    <div class="toast-icon-box">${iconSvg}</div>
+    <div class="toast-content">
+      <h4 class="toast-title">${title}</h4>
+      <p class="toast-message">${message}</p>
+    </div>
+  `;
+
+  container.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add('show');
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, 400);
+  }, 4000);
+}
+
 function submitContactForm(event) {
   event.preventDefault();
   
@@ -585,7 +625,7 @@ function submitContactForm(event) {
                           EMAILJS_CONFIG.templateId !== 'YOUR_TEMPLATE_ID';
 
   if (!isKeyConfigured || typeof emailjs === 'undefined') {
-    alert('[테스트 접수 성공]\n\n입력하신 내용이 정상적으로 수집되었습니다!\n(실제 이메일 발송을 위해서는 EmailJS API 키 설정이 필요합니다.)');
+    showToast('접수 완료', '입력하신 내용이 성공적으로 접수되었습니다.');
     document.getElementById('contactForm').reset();
     closeContactModal();
     btn.disabled = false;
@@ -596,13 +636,13 @@ function submitContactForm(event) {
   // Send email via EmailJS
   emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams)
     .then(function() {
-      alert('성공적으로 접수되었습니다. 확인 후 신속히 연락드리겠습니다.');
+      showToast('전송 완료', '성공적으로 접수되었습니다. 확인 후 신속히 연락드리겠습니다.');
       document.getElementById('contactForm').reset();
       closeContactModal();
     })
     .catch(function(error) {
       console.error('EmailJS Error:', error);
-      alert('메일 전송에 실패했습니다. (오류: ' + (error.text || error.status || 'EmailJS 오류') + ')');
+      showToast('전송 실패', '메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.', true);
     })
     .finally(function() {
       btn.disabled = false;

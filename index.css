@@ -2856,3 +2856,99 @@ html, body {
     font-size: 0.86rem;
   }
 }
+
+/* ========================================================================
+   PREMIUM TOAST NOTIFICATION STYLES
+   ======================================================================== */
+.toast-notification-container {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 2000000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toast-card {
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 440px;
+  padding: 16px 20px;
+  background: rgba(14, 18, 30, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 192, 0, 0.4);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 192, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #ffffff;
+  transform: translateY(30px) scale(0.95);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-card.show {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.toast-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 192, 0, 0.15);
+  border: 1px solid rgba(255, 192, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffc000;
+  flex-shrink: 0;
+}
+
+.toast-card.error .toast-icon-box {
+  background: rgba(255, 85, 85, 0.15);
+  border-color: rgba(255, 85, 85, 0.5);
+  color: #ff5555;
+}
+
+.toast-card.error {
+  border-color: rgba(255, 85, 85, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 85, 85, 0.15);
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-family: var(--font-title);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 2px;
+  letter-spacing: 0.02em;
+}
+
+.toast-message {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .toast-notification-container {
+    bottom: 20px;
+    right: 16px;
+    left: 16px;
+  }
+  .toast-card {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
