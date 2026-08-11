@@ -543,12 +543,47 @@ function closeContactModal() {
 window.openContactModal = openContactModal;
 window.closeContactModal = closeContactModal;
 
+// Phone Number Auto Hyphen Formatter
+function formatPhoneNumber(value) {
+  if (!value) return value;
+  const numbersOnly = value.replace(/[^0-9]/g, '');
+  const len = numbersOnly.length;
+  
+  if (len < 4) return numbersOnly;
+
+  // 서울 지역번호 (02) 처리
+  if (numbersOnly.startsWith('02')) {
+    if (len < 6) return `${numbersOnly.slice(0, 2)}-${numbersOnly.slice(2)}`;
+    if (len < 10) return `${numbersOnly.slice(0, 2)}-${numbersOnly.slice(2, 5)}-${numbersOnly.slice(5)}`;
+    return `${numbersOnly.slice(0, 2)}-${numbersOnly.slice(2, 6)}-${numbersOnly.slice(6, 10)}`;
+  }
+
+  // 1588 등 4자리 대표번호 처리
+  if (numbersOnly.startsWith('15') || numbersOnly.startsWith('16') || numbersOnly.startsWith('18')) {
+    if (len <= 4) return numbersOnly;
+    return `${numbersOnly.slice(0, 4)}-${numbersOnly.slice(4, 8)}`;
+  }
+
+  // 일반 휴대폰 (010, 011 등) 및 지역번호 (031, 051 등)
+  if (len < 8) return `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3)}`;
+  if (len < 11) return `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 6)}-${numbersOnly.slice(6)}`;
+  return `${numbersOnly.slice(0, 3)}-${numbersOnly.slice(3, 7)}-${numbersOnly.slice(7, 11)}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const contactBtn = document.getElementById('contact-nav-btn');
   if (contactBtn) {
     contactBtn.addEventListener('click', (e) => {
       e.preventDefault();
       openContactModal();
+    });
+  }
+
+  // Phone input auto-formatting
+  const phoneInput = document.getElementById('contactPhone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', (e) => {
+      e.target.value = formatPhoneNumber(e.target.value);
     });
   }
 });
