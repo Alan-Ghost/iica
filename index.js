@@ -505,14 +505,17 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
   initMultiRowMarquee();
 }
 
-/* ==========================================================================
-   CONTACT MODAL & EMAILJS
-   ========================================================================== */
+// EMAILJS CONFIGURATION (발급받은 키를 아래에 입력해주세요)
+const EMAILJS_CONFIG = {
+  publicKey: 'YOUR_PUBLIC_KEY',
+  serviceId: 'YOUR_SERVICE_ID',
+  templateId: 'YOUR_TEMPLATE_ID'
+};
 
-// Initialize EmailJS with public key
+// Initialize EmailJS
 (function() {
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init('YOUR_PUBLIC_KEY'); // User needs to replace this
+  if (typeof emailjs !== 'undefined' && EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init(EMAILJS_CONFIG.publicKey);
   }
 })();
 
@@ -576,9 +579,13 @@ function submitContactForm(event) {
     message: document.getElementById('contactMessage').value
   };
   
-  // Check if EmailJS key is configured
-  if (typeof emailjs === 'undefined' || !emailjs.send || emailjs.init.toString().includes('YOUR_PUBLIC_KEY')) {
-    alert('문의가 접수되었습니다. (현재 테스트 모드로, EmailJS 키 설정 시 실제 메일 발송이 이루어집니다)');
+  // Check if EmailJS key is fully configured
+  const isKeyConfigured = EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY' && 
+                          EMAILJS_CONFIG.serviceId !== 'YOUR_SERVICE_ID' && 
+                          EMAILJS_CONFIG.templateId !== 'YOUR_TEMPLATE_ID';
+
+  if (!isKeyConfigured || typeof emailjs === 'undefined') {
+    alert('[테스트 접수 성공]\n\n입력하신 내용이 정상적으로 수집되었습니다!\n(실제 이메일 발송을 위해서는 EmailJS API 키 설정이 필요합니다.)');
     document.getElementById('contactForm').reset();
     closeContactModal();
     btn.disabled = false;
@@ -586,20 +593,16 @@ function submitContactForm(event) {
     return;
   }
   
-  // Send to iica.exec@gmail.com
-  const send1 = emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
-  // Send to alancho123@gmail.com  
-  const send2 = emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID_2', templateParams);
-  
-  Promise.all([send1, send2])
+  // Send email via EmailJS
+  emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams)
     .then(function() {
-      alert('메일이 성공적으로 전송되었습니다. 빠른 시일 내에 답변드리겠습니다.');
+      alert('성공적으로 접수되었습니다. 확인 후 신속히 연락드리겠습니다.');
       document.getElementById('contactForm').reset();
       closeContactModal();
     })
     .catch(function(error) {
       console.error('EmailJS Error:', error);
-      alert('메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      alert('메일 전송에 실패했습니다. (오류: ' + (error.text || error.status || 'EmailJS 오류') + ')');
     })
     .finally(function() {
       btn.disabled = false;
