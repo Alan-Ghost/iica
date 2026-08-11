@@ -505,5 +505,106 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
   initMultiRowMarquee();
 }
 
+/* ==========================================================================
+   CONTACT MODAL & EMAILJS
+   ========================================================================== */
 
+// Initialize EmailJS with public key
+(function() {
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init('YOUR_PUBLIC_KEY'); // User needs to replace this
+  }
+})();
 
+function openContactModal() {
+  const overlay = document.getElementById('contactModalOverlay');
+  if (!overlay) return;
+  overlay.style.display = 'flex';
+  requestAnimationFrame(() => {
+    overlay.classList.add('active');
+  });
+  document.body.style.overflow = 'hidden';
+}
+
+function closeContactModal() {
+  const overlay = document.getElementById('contactModalOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('active');
+  setTimeout(() => {
+    overlay.style.display = 'none';
+  }, 300);
+  document.body.style.overflow = '';
+}
+
+// Attach to window object for inline HTML onclick handlers in ES Module scope
+window.openContactModal = openContactModal;
+window.closeContactModal = closeContactModal;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const contactBtn = document.getElementById('contact-nav-btn');
+  if (contactBtn) {
+    contactBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal();
+    });
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const overlay = document.getElementById('contactModalOverlay');
+    if (overlay && overlay.classList.contains('active')) {
+      closeContactModal();
+    }
+  }
+});
+
+function submitContactForm(event) {
+  event.preventDefault();
+  
+  const btn = document.getElementById('contactSubmitBtn');
+  const originalText = btn.querySelector('span').textContent;
+  btn.disabled = true;
+  btn.querySelector('span').textContent = '전송 중...';
+  
+  const templateParams = {
+    from_name: document.getElementById('contactName').value,
+    from_email: document.getElementById('contactEmail').value,
+    phone: document.getElementById('contactPhone').value,
+    subject: document.getElementById('contactSubject').value,
+    message: document.getElementById('contactMessage').value
+  };
+  
+  // Check if EmailJS key is configured
+  if (typeof emailjs === 'undefined' || !emailjs.send || emailjs.init.toString().includes('YOUR_PUBLIC_KEY')) {
+    alert('문의가 접수되었습니다. (현재 테스트 모드로, EmailJS 키 설정 시 실제 메일 발송이 이루어집니다)');
+    document.getElementById('contactForm').reset();
+    closeContactModal();
+    btn.disabled = false;
+    btn.querySelector('span').textContent = originalText;
+    return;
+  }
+  
+  // Send to iica.exec@gmail.com
+  const send1 = emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+  // Send to alancho123@gmail.com  
+  const send2 = emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID_2', templateParams);
+  
+  Promise.all([send1, send2])
+    .then(function() {
+      alert('메일이 성공적으로 전송되었습니다. 빠른 시일 내에 답변드리겠습니다.');
+      document.getElementById('contactForm').reset();
+      closeContactModal();
+    })
+    .catch(function(error) {
+      console.error('EmailJS Error:', error);
+      alert('메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btn.querySelector('span').textContent = originalText;
+    });
+}
+
+window.submitContactForm = submitContactForm;

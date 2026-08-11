@@ -8,6 +8,7 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./index.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <!-- Header: 투명에서 스크롤 시 화이트/블랙으로 전환되는 현대적 네비게이션 -->
@@ -22,6 +23,7 @@
         <a href="#certifications">Certifications</a>
         <a href="#portfolio">Portfolio</a>
         <a href="#partners">Partners</a>
+        <a href="#" id="contact-nav-btn" onclick="openContactModal(); return false;">Contact</a>
       </nav>
       <div class="lang-selector">
         <button class="lang-btn">KR</button>
@@ -701,6 +703,50 @@
       </div>
     </div>
   </footer>
+
+  <!-- Contact Modal -->
+  <div class="contact-modal-overlay" id="contactModalOverlay" onclick="closeContactModal()">
+    <div class="contact-modal" onclick="event.stopPropagation()">
+      <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
+      
+      <div class="contact-modal-header">
+        <div class="contact-brand-badge">
+          <img src="/common/logo.svg" alt="IICA Logo" class="contact-brand-logo">
+          <span class="contact-brand-title">CONTACT <strong class="gold-accent">IICA</strong></span>
+        </div>
+        <p class="contact-modal-subtitle" data-i18n="contact_subtitle">IICA와 함께 국제지도자의 미래로 !</p>
+      </div>
+
+      <form id="contactForm" onsubmit="submitContactForm(event)">
+        <div class="contact-form-row">
+          <div class="contact-form-field">
+            <label data-i18n="contact_name">성함 / 회사명</label>
+            <input type="text" id="contactName" name="name" placeholder="홍길동 (주식회사 IICA)" required>
+          </div>
+          <div class="contact-form-field">
+            <label data-i18n="contact_email">이메일 주소</label>
+            <input type="email" id="contactEmail" name="email" placeholder="example@iica.kr" required>
+          </div>
+        </div>
+        <div class="contact-form-field">
+          <label data-i18n="contact_phone">연락처</label>
+          <input type="tel" id="contactPhone" name="phone" placeholder="010-0000-0000">
+        </div>
+        <div class="contact-form-field">
+          <label data-i18n="contact_subject">문의 제목</label>
+          <input type="text" id="contactSubject" name="subject" placeholder="문의하실 제목을 입력해주세요" required>
+        </div>
+        <div class="contact-form-field">
+          <label data-i18n="contact_message">문의 내용</label>
+          <textarea id="contactMessage" name="message" rows="4" placeholder="궁금하신 점이나 문의 내용을 상세히 적어주시면 확인 후 신속히 연락드리겠습니다." required></textarea>
+        </div>
+        <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">
+          <span data-i18n="contact_send">문의하기 전송</span>
+          <svg class="send-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </form>
+    </div>
+  </div>
 
 
 

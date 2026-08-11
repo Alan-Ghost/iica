@@ -2504,7 +2504,8 @@ html, body {
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 14px !important;
-    gap: 8px !important;
+    width: 96% !important;
+    padding: 0 4px !important;
   }
 
   .logo {
@@ -2518,29 +2519,31 @@ html, body {
   }
 
   .logo-text {
-    font-size: 1.25rem !important;
+    font-size: 1.15rem !important;
     letter-spacing: 1px !important;
   }
 
   .nav {
-    gap: 12px !important;
+    gap: clamp(4px, 1.8vw, 10px) !important;
     flex-shrink: 1 !important;
     min-width: 0 !important;
+    margin-right: 6px !important;
   }
 
   .nav a {
-    font-size: clamp(0.68rem, 2.5vw, 0.82rem) !important;
-    letter-spacing: 0.6px !important;
+    font-size: clamp(0.6rem, 2.0vw, 0.78rem) !important;
+    letter-spacing: 0.2px !important;
     white-space: nowrap !important;
+    padding: 2px 0 !important;
   }
 
   .lang-btn {
-    padding: 4px 10px !important;
-    font-size: 0.75rem !important;
+    padding: 4px 8px !important;
+    font-size: 0.72rem !important;
     flex-shrink: 0 !important;
     cursor: pointer !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2554,6 +2557,8 @@ html, body {
     position: relative !important;
     z-index: 100000 !important;
     overflow: visible !important;
+    flex-shrink: 0 !important;
+    margin-left: 2px !important;
   }
 
   .lang-dropdown {
@@ -2576,7 +2581,7 @@ html, body {
 
 @media (max-width: 520px) {
   .header-inner {
-    padding: 0 10px !important;
+    padding: 0 4px !important;
   }
 
   .logo-text {
@@ -2584,17 +2589,20 @@ html, body {
   }
 
   .nav {
-    gap: 8px !important;
+    gap: clamp(3px, 1.4vw, 8px) !important;
+    margin-right: 4px !important;
   }
 
   .nav a {
-    font-size: 0.68rem !important;
-    letter-spacing: 0.4px !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.1px !important;
   }
 
   .lang-btn {
-    padding: 3px 8px !important;
-    font-size: 0.7rem !important;
+    padding: 3px 6px !important;
+    font-size: 0.68rem !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
   }
 }
 
@@ -2608,64 +2616,243 @@ html, body {
   margin-top: 0;
 }
 
-.footer-container {
-  display: flex;
-  justify-content: space-between;
+/* ========================================================================
+   PREMIUM CONTACT MODAL STYLES
+   ======================================================================== */
+.contact-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 7, 13, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100000;
+  display: none;
+  justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.footer-left {
+.contact-modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.contact-modal {
+  background: linear-gradient(150deg, #161b2b 0%, #0d101a 100%);
+  border: 1px solid rgba(255, 192, 0, 0.28);
+  border-radius: 20px;
+  padding: 44px 40px 40px;
+  width: 90%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 192, 0, 0.08);
+  animation: contactModalPopIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #fff;
+}
+
+@keyframes contactModalPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 22px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  line-height: 1;
+}
+
+.contact-modal-close:hover {
+  background: rgba(255, 192, 0, 0.15);
+  border-color: rgba(255, 192, 0, 0.5);
+  color: #ffc000;
+  transform: rotate(90deg);
+}
+
+.contact-modal-header {
+  margin-bottom: 28px;
   text-align: left;
 }
 
-.footer-logo {
-  display: flex;
+.contact-brand-badge {
+  display: inline-flex;
   align-items: center;
   gap: 12px;
-  flex-shrink: 0;
+  margin-bottom: 8px;
 }
 
-.footer-logo-img {
+.contact-brand-logo {
   width: 38px;
   height: 38px;
   object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(255, 192, 0, 0.3));
 }
 
-.footer-logo-text {
+.contact-brand-title {
   font-family: var(--font-title);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: var(--text-white);
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  color: #ffffff;
 }
 
-.footer-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.gold-accent {
+  color: #ffc000;
+  font-weight: 800;
 }
 
-.footer-info-text {
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.75);
-  margin: 0;
-  line-height: 1.6;
-  word-break: keep-all;
+.contact-modal-subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 215, 0, 0.85);
+  margin: 4px 0 0;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
 }
 
-.footer-copyright {
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-form-field {
+  margin-bottom: 18px;
+}
+
+.contact-form-field label {
+  display: block;
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.4);
-  margin: 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 7px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 860px) {
-  .footer-left {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+.contact-form-field input,
+.contact-form-field textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-family: 'Pretendard', sans-serif;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.contact-form-field input:focus,
+.contact-form-field textarea:focus {
+  outline: none;
+  border-color: #ffc000;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 16px rgba(255, 192, 0, 0.22);
+}
+
+.contact-form-field input::placeholder,
+.contact-form-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.88rem;
+}
+
+.contact-form-field textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.contact-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffab00 100%);
+  color: #0d101a;
+  font-size: 0.98rem;
+  font-weight: 800;
+  font-family: 'Pretendard', var(--font-title);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: all 0.25s ease;
+  margin-top: 6px;
+  box-shadow: 0 8px 24px rgba(255, 192, 0, 0.25);
+}
+
+.contact-submit-btn:hover {
+  background: linear-gradient(135deg, #ffe033 0%, #ffb700 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(255, 192, 0, 0.4);
+}
+
+.contact-submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(255, 192, 0, 0.2);
+}
+
+.contact-submit-btn .send-icon {
+  transition: transform 0.25s ease;
+}
+
+.contact-submit-btn:hover .send-icon {
+  transform: translate(2px, -2px);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mobile responsive for Contact Modal */
+@media (max-width: 768px) {
+  .contact-modal {
+    padding: 32px 22px 28px;
+    width: 92%;
+    border-radius: 16px;
+  }
+  .contact-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .contact-brand-title {
+    font-size: 1.35rem;
+  }
+  .contact-brand-logo {
+    width: 32px;
+    height: 32px;
+  }
+  .contact-modal-subtitle {
+    font-size: 0.86rem;
   }
 }
