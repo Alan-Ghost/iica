@@ -122,6 +122,51 @@ html, body {
   color: var(--accent-gold);
 }
 
+/* CONTACT Menu Heartbeat & Wave Glow Animation */
+#contact-nav-btn {
+  display: inline-block;
+  color: var(--accent-gold);
+  font-weight: 700;
+  animation: contactHeartbeatPulse 2.6s infinite ease-in-out;
+  transform-origin: center center;
+  will-change: transform, text-shadow, color;
+}
+
+@keyframes contactHeartbeatPulse {
+  0%, 100% {
+    transform: scale(1);
+    color: var(--accent-gold);
+    text-shadow: 0 0 2px rgba(255, 192, 0, 0.2);
+  }
+  12% {
+    transform: scale(1.12);
+    color: #ffe066;
+    text-shadow: 0 0 12px rgba(255, 192, 0, 0.8), 0 0 20px rgba(255, 192, 0, 0.4);
+  }
+  24% {
+    transform: scale(1.03);
+    color: #ffc000;
+    text-shadow: 0 0 6px rgba(255, 192, 0, 0.5);
+  }
+  36% {
+    transform: scale(1.1);
+    color: #ffffff;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 24px rgba(255, 192, 0, 0.6);
+  }
+  48% {
+    transform: scale(1);
+    color: var(--accent-gold);
+    text-shadow: 0 0 4px rgba(255, 192, 0, 0.3);
+  }
+}
+
+#contact-nav-btn:hover {
+  animation-play-state: paused;
+  transform: scale(1.15);
+  color: #ffffff !important;
+  text-shadow: 0 0 18px rgba(255, 192, 0, 1), 0 0 30px rgba(255, 192, 0, 0.6) !important;
+}
+
 /* Zero border-radius standard button inspired by Lamborghini */
 .lang-selector {
   position: relative;
